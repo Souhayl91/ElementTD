@@ -20,6 +20,7 @@ public class Tower : MonoBehaviour
 	    range = 10f;
 	    _fireRate = 1f;
 	    _fireCountDown = 0f;
+	    bulletSpawn = GetComponentInChildren<Transform>().GetChild(0);
 	}
 	
 	// Update is called once per frame
@@ -52,7 +53,6 @@ public class Tower : MonoBehaviour
         Bullet b = newBullet.GetComponent<Bullet>();
         if(b != null)
             b.FindTarget(_target);
-        Debug.Log(newBullet);
     }
     void UpdateTarget()
     {
