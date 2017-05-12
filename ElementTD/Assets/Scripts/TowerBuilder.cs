@@ -13,7 +13,7 @@ public class TowerBuilder : MonoBehaviour {
 	void Update () {
 		
 	}
-    public void SetTowerToBuild(BaseTower tower)
+    public void SetTowerToBuild(TowerBase tower)
     {
         
     }
