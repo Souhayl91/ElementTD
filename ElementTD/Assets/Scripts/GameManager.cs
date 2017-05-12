@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private Data _data;
+    public Data data;
     private WaveManager _waveManager;
+    [SerializeField] private int _startingGold = 100;
+    [SerializeField] private int _startingHP = 50;
 
     public static GameManager instance;
     // Use this for initialization
@@ -16,6 +18,10 @@ public class GameManager : MonoBehaviour
             Debug.LogError("More than one game manager");
             return;
         }
+        data = new Data();
+        data.SetGold(_startingGold);
+        data.SetHP(_startingHP);
+
         instance = this;
     }
 	
