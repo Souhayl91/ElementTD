@@ -30,11 +30,11 @@ public class WaveManager : MonoBehaviour
         while (true)
         {
             
-            yield return new WaitForSeconds(_buildInterval);
+            yield return new WaitForSeconds(_buildInterval / GameManager.instance.gameSpeed);
             for (int i = 0; i < _enemiesAmount; i++)
             {
                 _enemyFactory.SpawnEnemy();
-                yield return new WaitForSeconds(enemyInterval);
+                yield return new WaitForSeconds(enemyInterval / GameManager.instance.gameSpeed);
             }
         }
     }

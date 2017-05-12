@@ -35,7 +35,7 @@ public class BaseEnemy : MonoBehaviour
 	// Update is called once per frame
 	void Update () {
         Vector3 dir = _target.position - transform.position;
-        transform.Translate(dir.normalized * _speed * Time.deltaTime, Space.World);
+        transform.Translate(dir.normalized * _speed * GameManager.instance.gameSpeed * Time.deltaTime, Space.World);
 
         if (Vector3.Distance(transform.position, _target.position) <= 0.4f)
         {
@@ -45,11 +45,12 @@ public class BaseEnemy : MonoBehaviour
     void GetNextWayPoint()
     {
         _wavePointIndex++;
-        if (_wavePointIndex >= Waypoint.points.Length - 1)
+        if (_wavePointIndex >= Waypoint.points.Length)
         {
             _wavePointIndex = 0;
             //TODO: Remove live from player
-            //GameManager.instance.data.DecreaseHP(int Value);
+            GameManager.instance.data.DecreaseHP(1);
+            //Debug.Log(GameManager.instance.data.GetHP());
         }
 
         _target = Waypoint.points[_wavePointIndex];

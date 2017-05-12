@@ -21,7 +21,7 @@ public class BulletBase : MonoBehaviour
         }
 
         Vector3 dir = _target.position - transform.position;
-        float distanceThisFrame = _speed * Time.deltaTime;
+        float distanceThisFrame = _speed * GameManager.instance.gameSpeed * Time.deltaTime;
 
         if (dir.magnitude <= distanceThisFrame)
         {
