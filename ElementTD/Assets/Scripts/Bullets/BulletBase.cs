@@ -25,7 +25,7 @@ public class BulletBase : MonoBehaviour
 
         if (dir.magnitude <= distanceThisFrame)
         {
-            HitTarget();
+            //HitTarget();
             return;
         }
         transform.Translate(dir.normalized * distanceThisFrame, Space.World);
@@ -47,7 +47,7 @@ public class BulletBase : MonoBehaviour
         _target = target;
     }
 
-    private void HitTarget()
+    public void HitTarget()
     {
         Destroy(gameObject);
     }

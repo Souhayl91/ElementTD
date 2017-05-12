@@ -62,14 +62,53 @@ public class BaseEnemy : MonoBehaviour
     {
         return _speed;
     }
-
     public void SetHealth(float health)
     {
         _health = health;
     }
 
+
+    public void DecreaseHealth(float damage)
+    {
+        _health -= damage;
+
+        if (_health <= 0)
+        {
+            //TODO: THIS IS WHERE THE ENEMY DIES
+            Destroy(this.gameObject);
+        }
+    }
+
     public void SetSpeed(float speed)
     {
         _speed = speed;
+    }
+    
+
+    protected void OnTriggerEnter2D(Collider2D other)
+    {
+
+        if (other.gameObject.GetComponent<BulletWater>() != null)
+        {
+            
+            BulletWater bullet = other.gameObject.GetComponent<BulletWater>();
+            DecreaseHealth(bullet.GetDamage());
+            bullet.HitTarget();
+            
+        }
+
+        if (other.gameObject.GetComponent<BulletFire>() != null)
+        {
+            BulletFire bullet = other.gameObject.GetComponent<BulletFire>();
+            DecreaseHealth(bullet.GetDamage());
+            bullet.HitTarget();
+            
+        }
+        if (other.gameObject.GetComponent<BulletNature>() != null)
+        {
+            BulletNature bullet = other.gameObject.GetComponent<BulletNature>();
+            DecreaseHealth(bullet.GetDamage());
+            bullet.HitTarget();
+        }
     }
 }

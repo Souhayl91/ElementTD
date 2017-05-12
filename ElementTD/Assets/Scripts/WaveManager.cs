@@ -33,11 +33,9 @@ public class WaveManager : MonoBehaviour
             yield return new WaitForSeconds(_buildInterval);
             for (int i = 0; i < _enemiesAmount; i++)
             {
-                Debug.Log("Spawn");
                 _enemyFactory.SpawnEnemy();
                 yield return new WaitForSeconds(enemyInterval);
             }
-            yield return new WaitForSeconds(waveTimer);
         }
     }
 }
