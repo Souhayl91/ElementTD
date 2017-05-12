@@ -5,8 +5,10 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
 
-    private float _speed;
+    [SerializeField] private float _speed;
+    [SerializeField]
     private Transform _target;
+    [SerializeField]
     private int wavePointIndex;
 
     // Use this for initialization
@@ -28,8 +30,6 @@ public class Enemy : MonoBehaviour
 	    {
 	        GetNextWayPoint();
 	    }
-
-
 	}
 
     void GetNextWayPoint()

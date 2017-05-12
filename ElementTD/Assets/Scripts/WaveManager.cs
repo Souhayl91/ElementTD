@@ -5,30 +5,39 @@ using UnityEngine;
 public class WaveManager : MonoBehaviour
 {
 
-    public Transform enemy;
     private EnemyFactory _enemyFactory;
+
+    private const int _enemiesAmount = 5;
+    private const float enemyInterval = 0.5f;
+
+    //Timers
+    private float _buildInterval;
     public float waveTimer;
-    private float countdown;
+    private float _countdown;
 	// Use this for initialization
 	void Start ()
 	{
+	    _buildInterval = 1f;
 	    waveTimer = 5f;
-	    countdown = 2f;
+        _countdown = 2f;
+
+	    _enemyFactory = GameObject.Find("EnemyFactory").GetComponent<EnemyFactory>();
+	    StartCoroutine(Spawner());
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	    if (countdown <= 0f)
-	    {
-	        SpawnWave();
-	        countdown = waveTimer;
-	    }
-
-	    countdown -= Time.deltaTime;
-	}
-
-    void SpawnWave()
+    IEnumerator Spawner()
     {
-        //Debug.Log("Wave incoming");
+        while (true)
+        {
+            
+            yield return new WaitForSeconds(_buildInterval);
+            for (int i = 0; i < _enemiesAmount; i++)
+            {
+                Debug.Log("Spawn");
+                _enemyFactory.SpawnEnemy();
+                yield return new WaitForSeconds(enemyInterval);
+            }
+            yield return new WaitForSeconds(waveTimer);
+        }
     }
 }
