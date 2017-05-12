@@ -48,6 +48,8 @@ public class BaseEnemy : MonoBehaviour
         if (_wavePointIndex >= Waypoint.points.Length - 1)
         {
             _wavePointIndex = 0;
+            //TODO: Remove live from player
+            //GameManager.instance.data.DecreaseHP(int Value);
         }
 
         _target = Waypoint.points[_wavePointIndex];
