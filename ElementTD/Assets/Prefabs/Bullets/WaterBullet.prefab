@@ -21,8 +21,9 @@ GameObject:
   - component: {fileID: 4206210446685770}
   - component: {fileID: 212757343138697752}
   - component: {fileID: 114346422940169646}
+  - component: {fileID: 58884613252927072}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: WaterBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,6 +42,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &58884613252927072
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1726981612767686}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!114 &114346422940169646
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -49,9 +65,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1726981612767686}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 829258a3ace2c26478aed819a6101ac9, type: 3}
+  m_Script: {fileID: 11500000, guid: 1dafabab0fb870548b9dce7d0d2aa54a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _speed: 10
 --- !u!212 &212757343138697752
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -85,7 +102,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 76aaf923e3797a64eb74ab22c766abf8, type: 3}
-  m_Color: {r: 0.25740364, g: 0.7941176, b: 0, a: 1}
+  m_Color: {r: 0.11724138, g: 0, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

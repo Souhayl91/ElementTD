@@ -107,11 +107,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1872669053965754}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f48523f7e483fa4ab8625fe03bdcc14, type: 3}
+  m_Script: {fileID: 11500000, guid: d2b8be71199e7584ebde3e47e358928e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 1726981612767686, guid: df7453f7a309caa45bc3b309efd1b370, type: 2}
+  bullet: {fileID: 1726981612767686, guid: 9cec6b6a830ee4d41abb02599faa29c9, type: 2}
   bulletSpawn: {fileID: 4213420062213958}
+  _range: 7
+  _fireRate: 1
 --- !u!212 &212719257613118156
 SpriteRenderer:
   m_ObjectHideFlags: 1
