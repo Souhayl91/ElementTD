@@ -6,7 +6,7 @@ public class WaveManager : MonoBehaviour
 {
 
     public Transform enemy;
-
+    private EnemyFactory _enemyFactory;
     public float waveTimer;
     private float countdown;
 	// Use this for initialization
