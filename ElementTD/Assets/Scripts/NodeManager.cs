@@ -22,13 +22,10 @@ public class NodeManager : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-	  
-	}
-
-    void LateUpdate()
-    {
-        Pressed();
+	    Pressed();
     }
+
+
     private void AddNodes()
     {
         GameObject[] gameNodes = GameObject.FindGameObjectsWithTag("Node");
@@ -45,8 +42,19 @@ public class NodeManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+
+            if (hit != null && hit.collider != null && hit.collider.tag == "Node")
+            {
+                CycleNodes();
+                
+                
+            }
+
+         
+
+
             
-            CycleNodes();
         }
     }
 

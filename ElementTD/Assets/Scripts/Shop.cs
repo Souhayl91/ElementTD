@@ -7,39 +7,46 @@ public class Shop : MonoBehaviour
 
     public TowerBuilder towerBuilder;
     public NodeManager nodeManager;
-
+    private int goldCost = 100;
+    public int goldPlayer = 230;
     public void PurchaseWaterTower()
     {
         Debug.Log("Standard tower purchased");
         BuildManager.instance.SetTowerToBuild(BuildManager.instance.waterTower);
         Buy();
+
     }
 
     public void PurchaseEarthTower()
     {
         BuildManager.instance.SetTowerToBuild(BuildManager.instance.earthTower);
         Buy();
+
     }
 
     public void PurchaseNatureTower()
     {
         BuildManager.instance.SetTowerToBuild(BuildManager.instance.natureTower);
         Buy();
+
     }
     public void PurchaseFireTower()
     {
         BuildManager.instance.SetTowerToBuild(BuildManager.instance.fireTower);
         Buy();
+
     }
     public void PurchaseLightTower()
     {
         BuildManager.instance.SetTowerToBuild(BuildManager.instance.lightTower);
         Buy();
+
     }
     public void PurchaseDarkTower()
     {
         BuildManager.instance.SetTowerToBuild(BuildManager.instance.darkTower);
         Buy();
+        
     }
 
     void Buy()
@@ -49,17 +56,38 @@ public class Shop : MonoBehaviour
         {
             return;
         }
-
+        if (nodeManager.selectedNode == null || nodeManager.selectedNode.isClicked == false)
+        {
+            Debug.Log("Please select a node");
+            return;
+        }
         if (nodeManager.selectedNode._tower != null)
         {
             Debug.Log("Already a tower placed at this node!");
             return;
         }
 
-        BuildManager.instance.BuildTower(nodeManager.selectedNode.transform.position, nodeManager.selectedNode.transform.rotation);
-        nodeManager.selectedNode._tower = BuildManager.instance.tower;
+        Pay();
+    }
 
-        nodeManager.selectedNode.isClicked = false;
+    void Pay()
+    {
+        // TODO remove gold from player 
+        if (goldPlayer < goldCost)
+        {
+            Debug.Log("You need more gold");
+        }
+        else if (goldPlayer > goldCost && nodeManager.selectedNode.isClicked)
+        {
+            goldPlayer -= goldCost;
+            BuildManager.instance.BuildTower(nodeManager.selectedNode.transform.position, nodeManager.selectedNode.transform.rotation);
+            nodeManager.selectedNode._tower = BuildManager.instance.tower;
+            nodeManager.selectedNode.isClicked = false;
+        }
+        Debug.Log(goldPlayer);
         
+        
+
+
     }
 }
