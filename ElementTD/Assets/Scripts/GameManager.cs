@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
 
     public void IncreaseGameSpeed()
     {
-        if (gameSpeed < 1f)
+        if (gameSpeed < 2f)
         {
             gameSpeed += 0.5f;
         }
@@ -48,17 +48,17 @@ public class GameManager : MonoBehaviour
 
     public void DecreaseGameSpeed()
     {
-        if (gameSpeed > 1f)
+        if (gameSpeed > 2f)
         {
             gameSpeed--;
         }
-        else if (gameSpeed > 0f)
+        else if (gameSpeed > 0.5f)
         {
             gameSpeed -= 0.5f;
         }
         else
         {
-            Debug.Log("GameSpeed is 0 already");
+            Debug.Log("GameSpeed is 0.5 already");
         }
     }
 	
