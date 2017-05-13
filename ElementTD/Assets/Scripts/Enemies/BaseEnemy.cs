@@ -10,6 +10,8 @@ public class BaseEnemy : MonoBehaviour
     [SerializeField]
     protected float _speed = 3f;
 
+    [SerializeField] protected int _goldValue = 10;
+
     private float _distanceWalked;
 
     //Element resistance
@@ -84,7 +86,7 @@ public class BaseEnemy : MonoBehaviour
         if (_health <= 0)
         {
             //TODO: THIS IS WHERE THE ENEMY DIES
-            Debug.Log("I walked " + _distanceWalked + "cm before dying.");
+            GameManager.instance.data.IncreaseGold(_goldValue);
             Destroy(this.gameObject);
             return;
         }
