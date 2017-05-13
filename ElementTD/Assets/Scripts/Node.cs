@@ -35,6 +35,7 @@ public class Node : MonoBehaviour
           _rend.material.color = startColor;
             isClicked = false;
         }
+        
     }
 
     void OnMouseEnter()
@@ -55,7 +56,7 @@ public class Node : MonoBehaviour
 	void Update () {
 	    if (isClicked == false)
 	    {
-            GetComponent<SpriteRenderer>().color = startColor;
+	        _rend.material.color = startColor;
         }
 	}
 }

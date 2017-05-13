@@ -11,7 +11,7 @@ public class NodeManager : MonoBehaviour
     private int _nodeNumber;
     public Node nodeInstance;
     public Node selectedNode;
-    public Node lastNode;
+    
     // Use this for initialization
     void Start ()
     {
@@ -45,21 +45,25 @@ public class NodeManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-
+            
             CycleNodes();
         }
     }
 
     private void CycleNodes()
     {
+        
         foreach (Node node in nodes)
         {
             
             if (node.isClicked)
             {
-                lastNode = selectedNode;
+                if (selectedNode != null)
+                {
+                    selectedNode.isClicked = false;
+                }
                 selectedNode = node;
-                Debug.Log("cycle");
+                
  
             }
         }
