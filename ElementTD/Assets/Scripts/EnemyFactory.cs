@@ -22,8 +22,8 @@ public class EnemyFactory : MonoBehaviour
 
     public void SpawnEnemy()
     {
-        BaseEnemy enemy = new BaseEnemy();
+        //BaseEnemy enemy = new BaseEnemy();
         Instantiate(waterEnemy, Waypoint.points[0].position, Waypoint.points[0].rotation);
-        enemies.Add(enemy);
+        //enemies.Add(enemy);
     }
 }

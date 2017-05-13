@@ -17,13 +17,15 @@ public class TowerBase : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        InvokeRepeating("UpdateTarget", 0f, 0.5f);
+        //InvokeRepeating("UpdateTarget", 0f, 0.5f);
         bulletSpawn = GetComponentInChildren<Transform>().GetChild(0);
     }
 
     // Update is called once per frame
     void Update()
     {
+        UpdateTarget();
+
         if (_target == null)
         {
             return;
@@ -42,7 +44,7 @@ public class TowerBase : MonoBehaviour {
             Shoot();
             _fireCountDown = 1f / _fireRate;
         }
-        _fireCountDown -= Time.deltaTime;
+        _fireCountDown -= Time.deltaTime * GameManager.instance.gameSpeed;
     }
 
     void Shoot()

@@ -12,13 +12,12 @@ public class WaveManager : MonoBehaviour
 
     //Timers
     private float _buildInterval;
-    public float waveTimer;
+    //public float waveTimer = 20f;
     private float _countdown;
 	// Use this for initialization
 	void Start ()
 	{
-	    _buildInterval = 1f;
-	    waveTimer = 5f;
+	    _buildInterval = 5f;
         _countdown = 2f;
 
 	    _enemyFactory = GameObject.Find("EnemyFactory").GetComponent<EnemyFactory>();
@@ -29,7 +28,6 @@ public class WaveManager : MonoBehaviour
     {
         while (true)
         {
-            
             yield return new WaitForSeconds(_buildInterval / GameManager.instance.gameSpeed);
             for (int i = 0; i < _enemiesAmount; i++)
             {

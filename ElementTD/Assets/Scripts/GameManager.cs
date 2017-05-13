@@ -21,11 +21,11 @@ public class GameManager : MonoBehaviour
             return;
         }
         instance = this;
-        data = new Data();
+        data = gameObject.AddComponent<Data>();
         data.SetGold(_startingGold);
         data.SetHP(_startingHP);
 
-        
+        _waveManager = gameObject.AddComponent<WaveManager>();
     }
 
     public void IncreaseGameSpeed()
