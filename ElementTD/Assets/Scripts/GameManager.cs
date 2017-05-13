@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
         data = gameObject.AddComponent<Data>();
         data.SetGold(_startingGold);
         data.SetHP(_startingHP);
+        data.SetGoldText();
+        data.SetPlayerHPText();
 
         _waveManager = gameObject.AddComponent<WaveManager>();
     }
@@ -62,6 +64,7 @@ public class GameManager : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        data.goldText.text = "Gold: " + data.GetGold();
+	    data.playerHPText.text = "Player HP: " + data.GetHP();
+    }
 }
