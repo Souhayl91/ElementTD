@@ -13,11 +13,12 @@ public class BaseEnemy : MonoBehaviour
     [SerializeField] protected int _goldValue = 10;
 
     private float _distanceWalked;
-
+    
+    //Static
     //Element resistance
     private float _waterResistance = .7f;
     private float _fireResistance = .3f;
-    private float _natureResistance = 0f;
+    private float _natureResistance = 0;
 
     //Move target
     [SerializeField]
@@ -30,13 +31,33 @@ public class BaseEnemy : MonoBehaviour
     private Transform _healthBarTransform;
 
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
+        _waterResistance = Random.Range(0, 1.1f);
+        _fireResistance = Random.Range(0, 1.1f);
+        _natureResistance = Random.Range(0, 1.1f);
+        Debug.Log(_waterResistance);
+        Debug.Log(_fireResistance);
+        Debug.Log(_natureResistance);
+
+
+        Color color = new Color();
+
+        color.r = _fireResistance;
+        color.g = _natureResistance;
+        color.b = _waterResistance;
+        color.a = 1;
+
+        GetComponent<SpriteRenderer>().color = color;
+
         _health = _maxHealth;
         _healthBarTransform = healthBar.GetComponent<Transform>();
         
         _wavePointIndex = 0;
 
         _target = Waypoint.points[0];
+
+       
     }
 	
 	// Update is called once per frame
