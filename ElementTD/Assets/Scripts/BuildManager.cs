@@ -16,7 +16,7 @@ public class BuildManager : MonoBehaviour
     public GameObject fireTower;
     public GameObject darkTower;
     public GameObject lightTower;
-
+    public GameObject tower;
     void Awake()
     {
         if (instance != null)
@@ -45,5 +45,11 @@ public class BuildManager : MonoBehaviour
     public void SetTowerToBuild(GameObject tower)
     {
         _towerToBuild = tower;
+    }
+
+    public void BuildTower( Vector3 position, Quaternion rotation)
+    {
+        GameObject towerToBuild = GetTowerToBuild();
+        tower = Instantiate(towerToBuild, position, rotation);
     }
 }

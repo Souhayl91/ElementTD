@@ -5,51 +5,57 @@ using UnityEngine;
 public class Node : MonoBehaviour
 {
     public Color hoverColor;
+    public bool isClicked;
 
-    private GameObject _tower;
-
+    public GameObject _tower;
     private SpriteRenderer _rend;
-    private Color _startColor;
+    public Color startColor;
 
 
 	// Use this for initialization
 	void Start ()
 	{
         _rend = GetComponent<SpriteRenderer>();
-	    hoverColor = Color.black;
-	    _startColor = _rend.material.color;
+	    hoverColor = Color.green;
+	    startColor = _rend.material.color;
 	}
 
     void OnMouseDown()
     {
-        if (BuildManager.instance.GetTowerToBuild() == null)
+        if (isClicked == false)
         {
-            return;
+            Debug.Log("here");
+            _rend.material.color = hoverColor;  
+            isClicked = true;
+            
         }
-
-        if (_tower != null)
+        else if (isClicked == true)
         {
-            Debug.Log("Already a tower placed at this node!");
-            return;
+
+          _rend.material.color = startColor;
+            isClicked = false;
         }
-
-        GameObject towerToBuild = BuildManager.instance.GetTowerToBuild();
-        _tower = Instantiate(towerToBuild, transform.position, transform.rotation);
-
     }
 
     void OnMouseEnter()
     {
+        
         _rend.material.color = hoverColor;
     }
 
     void OnMouseExit()
     {
-        _rend.material.color = _startColor;
+        if (isClicked == false)
+        {
+            _rend.material.color = startColor;
+        }
     }
 	
 	// Update is called once per frame
 	void Update () {
-		
+	    if (isClicked == false)
+	    {
+            GetComponent<SpriteRenderer>().color = startColor;
+        }
 	}
 }
