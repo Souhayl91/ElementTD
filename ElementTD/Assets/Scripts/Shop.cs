@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Shop : MonoBehaviour
 {
-
-    public TowerBuilder towerBuilder;
     public NodeManager nodeManager;
     private GameObject _nodeManagerGameObject;
     private int goldCost = 100;

@@ -47,9 +47,10 @@ public class Node : MonoBehaviour
 
     void OnMouseExit()
     {
+        _isHovering = false;
         if (isClicked == false)
         {
-            _isHovering = false;
+            
             _rend.material.color = startColor;
         }
     }
