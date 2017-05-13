@@ -1,11 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Data : MonoBehaviour
 {
     private int _gold;
     private int _hp;
+    private GameObject goldObject;
+    public Text goldText;
+    private GameObject playerHPObject;
+    public Text playerHPText;
+
+    public void SetGoldText()
+    {
+        goldObject = GameObject.Find("Gold");
+        goldText = goldObject.GetComponent<Text>();
+        
+    }
+
+    public void SetPlayerHPText()
+    {
+        playerHPObject = GameObject.Find("PlayerHP");
+        playerHPText = playerHPObject.GetComponent<Text>();
+        
+    }
 
     public void SetGold(int gold)
     {
