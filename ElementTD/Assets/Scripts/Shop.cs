@@ -8,10 +8,8 @@ public class Shop : MonoBehaviour
     public TowerBuilder towerBuilder;
     public NodeManager nodeManager;
     private int goldCost = 100;
-    public int goldPlayer = 230;
     public void PurchaseWaterTower()
     {
-        Debug.Log("Standard tower purchased");
         BuildManager.instance.SetTowerToBuild(BuildManager.instance.waterTower);
         Buy();
 
@@ -73,18 +71,30 @@ public class Shop : MonoBehaviour
     void Pay()
     {
         // TODO remove gold from player 
-        if (goldPlayer < goldCost)
+        if (GameManager.instance.data.DecreaseGold(goldCost))
         {
-            Debug.Log("You need more gold");
-        }
-        else if (goldPlayer > goldCost && nodeManager.selectedNode.isClicked)
-        {
-            goldPlayer -= goldCost;
             BuildManager.instance.BuildTower(nodeManager.selectedNode.transform.position, nodeManager.selectedNode.transform.rotation);
             nodeManager.selectedNode._tower = BuildManager.instance.tower;
             nodeManager.selectedNode.isClicked = false;
         }
-        Debug.Log(goldPlayer);
+        else
+        {
+            Debug.Log("You need more gold");
+        }
+        Debug.Log("Current gold: " + GameManager.instance.data.GetGold());
+
+        //if (goldPlayer < goldCost)
+        //{
+        //    Debug.Log("You need more gold");
+        //}
+        //else if (goldPlayer > goldCost && nodeManager.selectedNode.isClicked)
+        //{
+        //    goldPlayer -= goldCost;
+        //    BuildManager.instance.BuildTower(nodeManager.selectedNode.transform.position, nodeManager.selectedNode.transform.rotation);
+        //    nodeManager.selectedNode._tower = BuildManager.instance.tower;
+        //    nodeManager.selectedNode.isClicked = false;
+        //}
+        //Debug.Log(goldPlayer);
         
         
 

@@ -131,6 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 50
   _speed: 3
+  _goldValue: 10
   _target: {fileID: 0}
   _wavePointIndex: 0
   healthBar: {fileID: 1732822433371640}

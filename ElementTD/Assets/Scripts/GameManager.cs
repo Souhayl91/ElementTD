@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public Data data;
     private WaveManager _waveManager;
-    [SerializeField] private int _startingGold = 100;
+    [SerializeField] private int _startingGold;
     [SerializeField] private int _startingHP = 50;
 
     public float gameSpeed = 1f; // 15 is max
