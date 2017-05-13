@@ -5,37 +5,43 @@ using UnityEngine;
 public class BaseEnemy : MonoBehaviour
 {
     //Attributes
-    [SerializeField]
+    [SerializeField] protected float _maxHealth = 50f;
     protected float _health;
     [SerializeField]
-    protected float _speed;
+    protected float _speed = 3f;
+
+    private float _distanceWalked;
 
     //Element resistance
-    private float _waterResistance;
-    private float _fireResistance;
-    private float _natureResistance;
+    private float _waterResistance = .7f;
+    private float _fireResistance = .3f;
+    private float _natureResistance = 0f;
+
+    //Move target
     [SerializeField]
     private Transform _target;
     [SerializeField]
     private int _wavePointIndex;
+
+    //Healthbar
+    public GameObject healthBar;
+    private Transform _healthBarTransform;
+
     // Use this for initialization
     void Start () {
-        _health = 60;
-        _speed = 3;
+        _health = _maxHealth;
+        _healthBarTransform = healthBar.GetComponent<Transform>();
+        
         _wavePointIndex = 0;
 
         _target = Waypoint.points[0];
-
-        _waterResistance = 0;
-        _fireResistance = 0;
-        _natureResistance = 0;
-
     }
 	
 	// Update is called once per frame
 	void Update () {
         Vector3 dir = _target.position - transform.position;
         transform.Translate(dir.normalized * _speed * GameManager.instance.gameSpeed * Time.deltaTime, Space.World);
+	    _distanceWalked += _speed;
 
         if (Vector3.Distance(transform.position, _target.position) <= 0.4f)
         {
@@ -78,15 +84,23 @@ public class BaseEnemy : MonoBehaviour
         if (_health <= 0)
         {
             //TODO: THIS IS WHERE THE ENEMY DIES
+            Debug.Log("I walked " + _distanceWalked + "cm before dying.");
             Destroy(this.gameObject);
+            return;
         }
+
+        _healthBarTransform.localScale = new Vector3(_health / _maxHealth, _healthBarTransform.localScale.y, _healthBarTransform.localScale.z);
     }
 
     public void SetSpeed(float speed)
     {
         _speed = speed;
     }
-    
+
+    public float GetDistanceWalked()
+    {
+        return _distanceWalked;
+    }
 
     protected void OnTriggerEnter2D(Collider2D other)
     {
@@ -95,7 +109,7 @@ public class BaseEnemy : MonoBehaviour
         {
             
             BulletWater bullet = other.gameObject.GetComponent<BulletWater>();
-            DecreaseHealth(bullet.GetDamage());
+            DecreaseHealth(bullet.GetDamage() * (1 - _waterResistance));
             bullet.HitTarget();
             
         }
@@ -103,14 +117,14 @@ public class BaseEnemy : MonoBehaviour
         if (other.gameObject.GetComponent<BulletFire>() != null)
         {
             BulletFire bullet = other.gameObject.GetComponent<BulletFire>();
-            DecreaseHealth(bullet.GetDamage());
+            DecreaseHealth(bullet.GetDamage() * (1 - _fireResistance));
             bullet.HitTarget();
             
         }
         if (other.gameObject.GetComponent<BulletNature>() != null)
         {
             BulletNature bullet = other.gameObject.GetComponent<BulletNature>();
-            DecreaseHealth(bullet.GetDamage());
+            DecreaseHealth(bullet.GetDamage() * (1 - _natureResistance));
             bullet.HitTarget();
         }
     }

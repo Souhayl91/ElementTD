@@ -59,19 +59,21 @@ public class TowerBase : MonoBehaviour {
     void UpdateTarget()
     {
         _enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        float shortestDistance = Mathf.Infinity;
+        //float shortestDistance = Mathf.Infinity;
+        float furthestEnemy = 0f;
         GameObject nearestEnemy = null;
 
         foreach (GameObject enemy in _enemies)
         {
             float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
-            if (distanceToEnemy < shortestDistance)
+            float enemyDistanceWalked = enemy.GetComponent<BaseEnemy>().GetDistanceWalked();
+            if (distanceToEnemy <= _range && enemyDistanceWalked > furthestEnemy)
             {
-                shortestDistance = distanceToEnemy;
+                furthestEnemy = enemyDistanceWalked;
                 nearestEnemy = enemy;
             }
         }
-        if (nearestEnemy != null && shortestDistance <= _range)
+        if (nearestEnemy != null)
         {
             _target = nearestEnemy.transform;
         }
