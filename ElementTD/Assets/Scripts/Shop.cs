@@ -7,13 +7,13 @@ public class Shop : MonoBehaviour
 
     public TowerBuilder towerBuilder;
     public NodeManager nodeManager;
-    private GameObject nodeManagerGameObject;
+    private GameObject _nodeManagerGameObject;
     private int goldCost = 100;
 
     void Start()
     {
-        nodeManagerGameObject = GameObject.Find("NodeManager");
-        nodeManager = nodeManagerGameObject.GetComponent<NodeManager>();
+        _nodeManagerGameObject = GameObject.Find("NodeManager");
+        nodeManager = _nodeManagerGameObject.GetComponent<NodeManager>();
     }
     public void PurchaseWaterTower()
     {

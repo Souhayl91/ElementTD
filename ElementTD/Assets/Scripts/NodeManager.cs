@@ -7,7 +7,7 @@ public class NodeManager : MonoBehaviour
 
     public List<Node> nodes = new List<Node>();
     public Shop shop;
-    private GameObject shopGameObject;
+    private GameObject _shopGameObject;
     private int _nodeNumber;
     public Node nodeInstance;
     public Node selectedNode;
@@ -15,8 +15,8 @@ public class NodeManager : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        shopGameObject = GameObject.Find("Shop");
-        shop = shopGameObject.GetComponent<Shop>();
+        _shopGameObject = GameObject.Find("Shop");
+        shop = _shopGameObject.GetComponent<Shop>();
         AddNodes();
      
     }

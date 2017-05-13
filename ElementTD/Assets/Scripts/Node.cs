@@ -10,6 +10,7 @@ public class Node : MonoBehaviour
     public GameObject _tower;
     private SpriteRenderer _rend;
     public Color startColor;
+    private bool _isHovering;
 
 
 	// Use this for initialization
@@ -40,7 +41,7 @@ public class Node : MonoBehaviour
 
     void OnMouseEnter()
     {
-        
+        _isHovering = true;
         _rend.material.color = hoverColor;
     }
 
@@ -48,13 +49,14 @@ public class Node : MonoBehaviour
     {
         if (isClicked == false)
         {
+            _isHovering = false;
             _rend.material.color = startColor;
         }
     }
 	
 	// Update is called once per frame
 	void Update () {
-	    if (isClicked == false)
+	    if (isClicked == false && _isHovering == false)
 	    {
 	        _rend.material.color = startColor;
         }

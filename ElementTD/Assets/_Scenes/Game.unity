@@ -4487,6 +4487,11 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: IncreaseGameSpeed
       objectReference: {fileID: 0}
+    - target: {fileID: 224370799444922320, guid: 9efef33d015ad7f4babe4332531fedf0,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: -46
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9efef33d015ad7f4babe4332531fedf0, type: 2}
   m_IsPrefabParent: 0
