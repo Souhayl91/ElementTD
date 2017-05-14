@@ -29,14 +29,24 @@ public class BaseEnemy : MonoBehaviour
     public GameObject healthBar;
     private Transform _healthBarTransform;
 
+    public void SetStats(float startingHealth, int goldWorth, float wRes, float fRes, float nRes)
+    {
+        _maxHealth = startingHealth;
+        _goldValue = goldWorth;
+        _waterResistance = wRes;
+        _fireResistance = fRes;
+        _natureResistance = nRes;
+    }
+
     // Use this for initialization
     void Start () {
+        Debug.Log("Health: " + _maxHealth + " Gold: " + _goldValue + " wRes: " + _waterResistance + " fRes: " + _fireResistance + " nRes: " + _natureResistance);
         _health = _maxHealth;
         _healthBarTransform = healthBar.GetComponent<Transform>();
         
         _wavePointIndex = 0;
 
-        _target = Waypoint.points[0];
+        _target = GameManager.instance.wavePoint.points[0];
     }
 	
 	// Update is called once per frame
@@ -53,7 +63,7 @@ public class BaseEnemy : MonoBehaviour
     void GetNextWayPoint()
     {
         _wavePointIndex++;
-        if (_wavePointIndex >= Waypoint.points.Length)
+        if (_wavePointIndex >= GameManager.instance.wavePoint.points.Length)
         {
             _wavePointIndex = 0;
             //TODO: Remove live from player
@@ -61,7 +71,7 @@ public class BaseEnemy : MonoBehaviour
             //Debug.Log(GameManager.instance.data.GetHP());
         }
 
-        _target = Waypoint.points[_wavePointIndex];
+        _target = GameManager.instance.wavePoint.points[_wavePointIndex];
     }
 
     public float GetHealth()

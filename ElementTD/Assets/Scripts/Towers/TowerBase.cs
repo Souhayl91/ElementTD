@@ -31,8 +31,8 @@ public class TowerBase : MonoBehaviour {
             return;
         }
 
-        Vector3 dir = _target.position - transform.position;
-        Quaternion lookRotation = Quaternion.LookRotation(dir);
+        //Vector3 dir = _target.position - transform.position;
+        //Quaternion lookRotation = Quaternion.LookRotation(dir);
 
         Quaternion rotation = Quaternion.LookRotation(_target.position - transform.position, transform.TransformDirection(Vector3.back));
         rotation.x = 0;

@@ -25,7 +25,6 @@ public class Node : MonoBehaviour
     {
         if (isClicked == false)
         {
-            Debug.Log("here");
             _rend.material.color = hoverColor;  
             isClicked = true;
             

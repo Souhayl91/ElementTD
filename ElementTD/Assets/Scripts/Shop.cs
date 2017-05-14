@@ -86,7 +86,6 @@ public class Shop : MonoBehaviour
         {
             Debug.Log("You need more gold");
         }
-        Debug.Log("Current gold: " + GameManager.instance.data.GetGold());
 
         //if (goldPlayer < goldCost)
         //{

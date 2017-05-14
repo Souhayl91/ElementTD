@@ -5,6 +5,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public Data data;
+    public GameObject wayPointsHolder;
+    public Waypoint wavePoint;
     private WaveManager _waveManager;
     [SerializeField] private int _startingGold;
     [SerializeField] private int _startingHP = 50;
@@ -27,7 +29,11 @@ public class GameManager : MonoBehaviour
         data.SetGoldText();
         data.SetPlayerHPText();
 
+        wavePoint = gameObject.AddComponent<Waypoint>();
+        wavePoint.SetWayPoints(wayPointsHolder);
+
         _waveManager = gameObject.AddComponent<WaveManager>();
+        _waveManager.StartWaveCoroutine();
     }
 
     public void IncreaseGameSpeed()

@@ -9,18 +9,20 @@ public class WaveManager : MonoBehaviour
 
     private const int _enemiesAmount = 5;
     private const float enemyInterval = 0.5f;
+    private int _waveCount = 0;
 
     //Timers
     private float _buildInterval;
     //public float waveTimer = 20f;
-    private float _countdown;
+    //private float _countdown;
 	// Use this for initialization
-	void Start ()
+	public void StartWaveCoroutine ()
 	{
 	    _buildInterval = 5f;
-        _countdown = 2f;
+        //_countdown = 2f;
 
 	    _enemyFactory = GameObject.Find("EnemyFactory").GetComponent<EnemyFactory>();
+        _enemyFactory.SetSpawnPosition();
 	    StartCoroutine(Spawner());
 	}
 	
@@ -29,6 +31,9 @@ public class WaveManager : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(_buildInterval / GameManager.instance.gameSpeed);
+            _waveCount++;
+            Debug.Log("Wave number: " + _waveCount);
+            _enemyFactory.SetWave(_waveCount);
             for (int i = 0; i < _enemiesAmount; i++)
             {
                 _enemyFactory.SpawnEnemy();
