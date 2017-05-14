@@ -15,9 +15,9 @@ public class BaseEnemy : MonoBehaviour
     private float _distanceWalked;
 
     //Element resistance
-    private float _waterResistance = .7f;
-    private float _fireResistance = .3f;
-    private float _natureResistance = 0f;
+    public float _waterResistance = .7f;
+    public float _fireResistance = .3f;
+    public float _natureResistance = 0f;
 
     //Move target
     [SerializeField]
