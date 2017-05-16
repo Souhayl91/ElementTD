@@ -15,9 +15,9 @@ public class BaseEnemy : MonoBehaviour
     private float _distanceWalked;
 
     //Element resistance
-    public float _waterResistance = .7f;
-    public float _fireResistance = .3f;
-    public float _natureResistance = 0f;
+    public float _waterResistance;
+    public float _fireResistance;
+    public float _natureResistance;
 
     //Move target
     [SerializeField]
@@ -40,7 +40,20 @@ public class BaseEnemy : MonoBehaviour
 
     // Use this for initialization
     void Start () {
-        Debug.Log("Health: " + _maxHealth + " Gold: " + _goldValue + " wRes: " + _waterResistance + " fRes: " + _fireResistance + " nRes: " + _natureResistance);
+        _waterResistance = Random.Range(0, 1);
+        _fireResistance = Random.Range(0, 1);
+        _natureResistance = Random.Range(0, 1);
+
+        Color color = new Color();
+
+        color.r = _fireResistance;
+        color.g = _natureResistance;
+        color.b = _waterResistance;
+        color.a = 1;
+
+        GetComponent<SpriteRenderer>().color = color;
+        Debug.Log("Health: " + _maxHealth + " Gold: " + _goldValue + " wRes: " + _waterResistance + 
+                " fRes: " + _fireResistance + " nRes: " + _natureResistance);
         _health = _maxHealth;
         _healthBarTransform = healthBar.GetComponent<Transform>();
         
@@ -97,6 +110,7 @@ public class BaseEnemy : MonoBehaviour
         {
             //TODO: THIS IS WHERE THE ENEMY DIES
             GameManager.instance.data.IncreaseGold(_goldValue);
+            GameManager.instance.waveManager.enemies.Remove(this.gameObject);
             Destroy(this.gameObject);
             return;
         }

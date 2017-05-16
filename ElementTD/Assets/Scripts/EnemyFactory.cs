@@ -43,7 +43,7 @@ public class EnemyFactory : MonoBehaviour
 
         //TODO: Set the resistances using genetic algorithm
 
-        enemy.GetComponent<EnemyNormal>().SetStats(43f + 7f * _waveCount, 10 + (int)(1 * _waveCount), 0.3f, 0.3f, 0.4f);
+        enemy.GetComponent<EnemyNormal>().SetStats(43f + 7f * _waveCount, 10 + (int)(1 * _waveCount), 0.4f, 0.2f, 0.4f);
 
         return enemy;
     }
