@@ -64,7 +64,7 @@ public class WaveManager : MonoBehaviour
 
             foreach (BaseEnemy.Gene gene in GameManager.instance.genetics.genes)
             {
-                GameObject enemy = _enemyFactory.SpawnEnemy(gene);
+                GameObject enemy = _enemyFactory.Spawn(gene);
                 AddUIElement(enemy);
                 enemies.Add(enemy);
                 yield return new WaitForSeconds(enemyInterval / GameManager.instance.gameSpeed);

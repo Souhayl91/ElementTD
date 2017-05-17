@@ -52,10 +52,6 @@ public class NodeManager : MonoBehaviour
 
                     CycleNodes();
             }
-
-         
-
-
             
         }
     }
@@ -68,9 +64,7 @@ public class NodeManager : MonoBehaviour
 
                 if (node.isClicked && node != _lastNode)
                 {
-
                     selectedNode = node;
-
                 }
             }
         if (_lastNode != null && _lastNode != selectedNode)

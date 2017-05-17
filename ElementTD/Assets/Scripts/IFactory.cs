@@ -1,16 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Factory : MonoBehaviour {
+public interface IFactory 
+{
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    void SetSpawnPosition();
+    GameObject Spawn(BaseEnemy.Gene gene);
+    GameObject Create(GameObject enemy, BaseEnemy.Gene gene);
+
 }
+
