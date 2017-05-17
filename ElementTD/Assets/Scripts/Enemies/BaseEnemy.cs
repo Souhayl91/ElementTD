@@ -39,10 +39,11 @@ public class BaseEnemy : MonoBehaviour
     }
 
     // Use this for initialization
-    void Start () {
-        _waterResistance = Random.Range(0, 1);
-        _fireResistance = Random.Range(0, 1);
-        _natureResistance = Random.Range(0, 1);
+    void Start ()
+    {
+        _waterResistance = 0.7f;
+        _fireResistance = 0.3f;
+        _natureResistance = 0.0f;
 
         Color color = new Color();
 
@@ -110,8 +111,19 @@ public class BaseEnemy : MonoBehaviour
         {
             //TODO: THIS IS WHERE THE ENEMY DIES
             GameManager.instance.data.IncreaseGold(_goldValue);
+
+            //TODO: FIX THIS PLEASE 
+            int index = GameManager.instance.waveManager.enemies.IndexOf(this.gameObject);
+            Destroy(GameManager.instance.waveManager.enemiesUI[index]);
+            GameManager.instance.waveManager.enemiesUI.RemoveAt(index);
+            GameManager.instance.waveManager.enemies.RemoveAt(index);
+            
+            Debug.Log("Enemies " + GameManager.instance.waveManager.enemies.Count);
+            Debug.Log("Enemy UI " + GameManager.instance.waveManager.enemiesUI.Count);
             GameManager.instance.waveManager.enemies.Remove(this.gameObject);
+            
             Destroy(this.gameObject);
+            
             return;
         }
 

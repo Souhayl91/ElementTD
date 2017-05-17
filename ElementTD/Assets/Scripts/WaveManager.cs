@@ -26,19 +26,21 @@ public class WaveManager : MonoBehaviour
     void Start()
     {
         enemies = GameObject.FindGameObjectsWithTag("Enemy").ToList();
+        enemiesUI = new List<GameObject>();
+
         enemyPanel = GameObject.Find("EnemyStats");
         enemyElement = Resources.Load("EnemyElement") as GameObject;
-        Debug.Log(enemies.Count);
-        for (int i = 0; i < enemies.Count; i++)
-        {
-            GameObject element = Instantiate(enemyElement);
-            element.transform.parent = enemyPanel.transform;
-            element.GetComponent<Image>().sprite = enemies[i].GetComponent<SpriteRenderer>().sprite;
-            element.transform.GetChild(0).GetComponent<Text>().text =
-                element.GetComponent<BaseEnemy>()._fireResistance +
-                " " + element.GetComponent<BaseEnemy>()._waterResistance +
-                " " + element.GetComponent<BaseEnemy>()._natureResistance;
-        }
+
+        //for (int i = 0; i < enemies.Count; i++)
+        //{
+        //    GameObject element = Instantiate(enemyElement);
+        //    element.transform.parent = enemyPanel.transform;
+        //    element.GetComponent<Image>().sprite = enemies[i].GetComponent<SpriteRenderer>().sprite;
+        //    element.transform.GetChild(0).GetComponent<Text>().text =
+        //        element.GetComponent<BaseEnemy>()._fireResistance +
+        //        " " + element.GetComponent<BaseEnemy>()._waterResistance +
+        //        " " + element.GetComponent<BaseEnemy>()._natureResistance;
+        //}
         
     }
 	public void StartWaveCoroutine ()
@@ -58,7 +60,7 @@ public class WaveManager : MonoBehaviour
           
                 yield return new WaitForSeconds(_buildInterval / GameManager.instance.gameSpeed);
             _waveCount++;
-            Debug.Log("Wave number: " + _waveCount);
+            //Debug.Log("Wave number: " + _waveCount);
             _enemyFactory.SetWave(_waveCount);
                 for (int i = 0; i < _enemiesAmount; i++)
                 {
@@ -70,19 +72,19 @@ public class WaveManager : MonoBehaviour
             enemies = GameObject.FindGameObjectsWithTag("Enemy").ToList();
             enemyPanel = GameObject.Find("EnemyStats");
             enemyElement = Resources.Load("EnemyElement") as GameObject;
-            Debug.Log(enemies.Count);
+            Debug.Log(enemyElement);
             for (int i = 0; i < enemies.Count; i++)
             {
                 GameObject element = Instantiate(enemyElement);
+                
                 element.transform.parent = enemyPanel.transform;
-                element.GetComponent<Image>().sprite = enemies[i].GetComponent<SpriteRenderer>().sprite;
+                element.GetComponent<Image>().color = enemies[i].GetComponent<SpriteRenderer>().color;
 
-                Debug.Log(element.GetComponent<Image>().sprite);
-                Debug.Log(enemies[i].GetComponent<SpriteRenderer>().sprite);
-                //element.transform.GetChild(0).GetComponent<Text>().text =
-                //    element.GetComponent<EnemyNormal>()._fireResistance +
-                //    " " + element.GetComponent<EnemyNormal>()._waterResistance +
-                //    " " + element.GetComponent<EnemyNormal>()._natureResistance;
+                element.transform.GetChild(0).GetComponent<Text>().text =
+                    enemies[i].GetComponent<EnemyNormal>()._fireResistance +
+                    " " + enemies[i].GetComponent<EnemyNormal>()._waterResistance +
+                    " " + enemies[i].GetComponent<EnemyNormal>()._natureResistance;
+                enemiesUI.Add(element);
             }
             yield return new WaitUntil(() => GameObject.FindGameObjectsWithTag("Enemy").Length <= 0);
         }

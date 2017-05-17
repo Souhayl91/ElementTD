@@ -7570,6 +7570,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1835803979225370, guid: 9efef33d015ad7f4babe4332531fedf0, type: 2}
+      propertyPath: m_Name
+      value: NatureUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 1342278764441082, guid: 9efef33d015ad7f4babe4332531fedf0, type: 2}
+      propertyPath: m_Name
+      value: WaterUI
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9efef33d015ad7f4babe4332531fedf0, type: 2}
   m_IsPrefabParent: 0
