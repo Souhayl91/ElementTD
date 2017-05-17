@@ -23,27 +23,34 @@ public class WaveManager : MonoBehaviour
 
 	    _enemyFactory = GameObject.Find("EnemyFactory").GetComponent<EnemyFactory>();
         _enemyFactory.SetSpawnPosition();
-	    StartCoroutine(Spawner());
-	}
+        StartCoroutine(Spawner());
+    }
 
     IEnumerator Spawner()
     {
         while (true)
         {
-          
-                yield return new WaitForSeconds(_buildInterval / GameManager.instance.gameSpeed);
+            
+            yield return new WaitForSeconds(_buildInterval / GameManager.instance.gameSpeed);
             _waveCount++;
             Debug.Log("Wave number: " + _waveCount);
             _enemyFactory.SetWave(_waveCount);
-                for (int i = 0; i < _enemiesAmount; i++)
-                {
-                    _enemyFactory.SpawnEnemy();
-                    yield return new WaitForSeconds(enemyInterval / GameManager.instance.gameSpeed);
-                }
+
+            foreach (BaseEnemy.Gene gene in GameManager.instance.genetics.genes)
+            {
+                _enemyFactory.SpawnEnemy(gene);
+                yield return new WaitForSeconds(enemyInterval / GameManager.instance.gameSpeed);
+            }
+            //for (int i = 0; i < _enemiesAmount; i++)
+            //{
+            //    _enemyFactory.SpawnEnemy();
+            //    yield return new WaitForSeconds(enemyInterval / GameManager.instance.gameSpeed);
+            //}
                 
-                //Debug.Log(_enemyFactory.enemies.Count);
+            //Debug.Log(_enemyFactory.enemies.Count);
             
             yield return new WaitUntil(() => GameObject.FindGameObjectsWithTag("Enemy").Length <= 0);
+            GameManager.instance.genetics.CreateNewGeneration();
         }
     }
 }

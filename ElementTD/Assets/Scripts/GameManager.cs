@@ -90,8 +90,8 @@ public class GameManager : MonoBehaviour
         //    genetics.CreateNewRandomPop();
             for (int i = 0; i < 100; i++)
             {
-                genetics.CreateNewGeneration();
-                if (genetics.bestFit <= 0.04f)
+                genetics.CreateNewGenerationWithOptimal();
+                if (genetics.bestFit <= 0.02f)
                 {
                     Debug.Log("Found (almost) perfect match! Found it after: " + (i + 1) + " generations.");
                     break;

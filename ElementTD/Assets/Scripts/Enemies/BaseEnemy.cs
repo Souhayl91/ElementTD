@@ -8,13 +8,15 @@ public class BaseEnemy : MonoBehaviour
     [System.Serializable]
     public class Gene
     {
-        public float waterResistance = 0.3f;
+        public float waterResistance;
         public float fireResistance;
         public float natureResistance;
+        public float distanceWalked;
+        public float damageTaken;
 
         public new string ToString()
         {
-            return "wRes: " + waterResistance + " fRes: " + fireResistance + " nRes: " + natureResistance + " total: " + (waterResistance + fireResistance + natureResistance);
+            return "wRes: " + waterResistance + " fRes: " + fireResistance + " nRes: " + natureResistance + " damage taken: " + damageTaken;
         }
     }
 
@@ -26,7 +28,7 @@ public class BaseEnemy : MonoBehaviour
 
     [SerializeField] protected int _goldValue = 10;
 
-    private float _distanceWalked;
+    //private float _distanceWalked;
 
     //Element resistance
     public Gene gene = new Gene();
@@ -43,7 +45,7 @@ public class BaseEnemy : MonoBehaviour
 
     public void SetStats(float startingHealth, int goldWorth, float wRes, float fRes, float nRes)
     {
-        Debug.Log("WTF - Health: " + _maxHealth + " Gold: " + _goldValue + " wRes: " + gene.waterResistance + " fRes: " + gene.fireResistance + " nRes: " + gene.natureResistance);
+        //Debug.Log("WTF - Health: " + _maxHealth + " Gold: " + _goldValue + " wRes: " + gene.waterResistance + " fRes: " + gene.fireResistance + " nRes: " + gene.natureResistance);
         _maxHealth = startingHealth;
         _goldValue = goldWorth;
         gene.waterResistance = wRes;
@@ -53,7 +55,7 @@ public class BaseEnemy : MonoBehaviour
 
     // Use this for initialization
     void Start () {
-        Debug.Log("Health: " + _maxHealth + " Gold: " + _goldValue + " wRes: " + gene.waterResistance + " fRes: " + gene.fireResistance + " nRes: " + gene.natureResistance);
+        Debug.Log("Health: " + _maxHealth + " Gold: " + _goldValue + " " + gene.ToString());
         _health = _maxHealth;
         _healthBarTransform = healthBar.GetComponent<Transform>();
         
@@ -66,7 +68,7 @@ public class BaseEnemy : MonoBehaviour
 	void Update () {
         Vector3 dir = _target.position - transform.position;
         transform.Translate(dir.normalized * _speed * GameManager.instance.gameSpeed * Time.deltaTime, Space.World);
-	    _distanceWalked += _speed;
+	    gene.distanceWalked += _speed;
 
         if (Vector3.Distance(transform.position, _target.position) <= 0.4f)
         {
@@ -110,6 +112,7 @@ public class BaseEnemy : MonoBehaviour
         {
             //TODO: THIS IS WHERE THE ENEMY DIES
             GameManager.instance.data.IncreaseGold(_goldValue);
+            GameManager.instance.genetics.AddGene(gene);
 
             Destroy(this.gameObject);
             return;
@@ -125,7 +128,7 @@ public class BaseEnemy : MonoBehaviour
 
     public float GetDistanceWalked()
     {
-        return _distanceWalked;
+        return gene.distanceWalked;
     }
 
     protected void OnTriggerEnter2D(Collider2D other)
@@ -135,6 +138,7 @@ public class BaseEnemy : MonoBehaviour
         {
             
             BulletWater bullet = other.gameObject.GetComponent<BulletWater>();
+            gene.damageTaken += bullet.GetDamage();
             DecreaseHealth(bullet.GetDamage() * (1 - gene.waterResistance));
             bullet.HitTarget();
             
@@ -143,6 +147,7 @@ public class BaseEnemy : MonoBehaviour
         if (other.gameObject.GetComponent<BulletFire>() != null)
         {
             BulletFire bullet = other.gameObject.GetComponent<BulletFire>();
+            gene.damageTaken += bullet.GetDamage();
             DecreaseHealth(bullet.GetDamage() * (1 - gene.fireResistance));
             bullet.HitTarget();
             
@@ -150,6 +155,7 @@ public class BaseEnemy : MonoBehaviour
         if (other.gameObject.GetComponent<BulletNature>() != null)
         {
             BulletNature bullet = other.gameObject.GetComponent<BulletNature>();
+            gene.damageTaken += bullet.GetDamage();
             DecreaseHealth(bullet.GetDamage() * (1 - gene.natureResistance));
             bullet.HitTarget();
         }

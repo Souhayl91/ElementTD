@@ -9,7 +9,8 @@ public class GeneticAlgorithm : MonoBehaviour
     private float mutationMin = .01f;
     private float mutationMax = .2f;
 
-    private List<BaseEnemy.Gene> _genes = new List<BaseEnemy.Gene>();
+    public List<BaseEnemy.Gene> genes = new List<BaseEnemy.Gene>();
+    private List<BaseEnemy.Gene> _currentPopulationGenes = new List<BaseEnemy.Gene>();
     private BaseEnemy.Gene fittestGene = null;
     private BaseEnemy.Gene secondFittestGene = null;
 
@@ -19,7 +20,8 @@ public class GeneticAlgorithm : MonoBehaviour
     {
         fireResistance = 0.8f,
         natureResistance = 0.1f,
-        waterResistance = 0.1f
+        waterResistance = 0.1f,
+        distanceWalked = 0
     };
 
     public float bestFit = 1;
@@ -30,19 +32,24 @@ public class GeneticAlgorithm : MonoBehaviour
     public void CreateNewRandomPop()
     {
         bestFit = 1;
-        _genes.Clear();
+        genes.Clear();
         fittestGene = null;
         secondFittestGene = null;
         for (int i = 0; i < populationSize; i++)
         {
-            _genes.Add(RandomGene());
+            genes.Add(RandomGene());
         }
+    }
 
+    public void AddGene(BaseEnemy.Gene gene)
+    {
+        _currentPopulationGenes.Add(gene);
     }
 
     public void CreateNewGeneration()
     {
         SetFittestGenes();
+        _currentPopulationGenes.Clear();
         _newGenes.Clear();
         for (int i = 0; i < populationSize; i++)
         {
@@ -56,7 +63,26 @@ public class GeneticAlgorithm : MonoBehaviour
             _newGenes.Add(newGene);
         }
         //Debug.Log("Mutate count: " + _debugMutateCount);
-        _genes = _newGenes;
+        genes = _newGenes;
+    }
+
+    public void CreateNewGenerationWithOptimal()
+    {
+        SetFittestGenesWithOptimal();
+        _newGenes.Clear();
+        for (int i = 0; i < populationSize; i++)
+        {
+            BaseEnemy.Gene newGene = Crossover();
+            if (Random.Range(0, 0.99f) < mutationChance)
+            {
+                _debugMutateCount++;
+                newGene = Mutate(newGene);
+            }
+            Debug.Log("Gene number: " + i + " : " + newGene.ToString());
+            _newGenes.Add(newGene);
+        }
+        //Debug.Log("Mutate count: " + _debugMutateCount);
+        genes = _newGenes;
     }
 
     private void SetFittestGenes()
@@ -66,13 +92,13 @@ public class GeneticAlgorithm : MonoBehaviour
             fittestGene = null;
             secondFittestGene = null;
         }
-        foreach (var gene in _genes)
+        foreach (var gene in _currentPopulationGenes)
         {
             if (fittestGene == null)
             {
                 fittestGene = gene;
             }
-            else if (FitnessFunction(gene) < FitnessFunction(fittestGene))
+            else if (gene.damageTaken > fittestGene.damageTaken)
             {
                 secondFittestGene = fittestGene;
                 fittestGene = gene;
@@ -81,13 +107,44 @@ public class GeneticAlgorithm : MonoBehaviour
             {
                 secondFittestGene = gene;
             }
-            else if (FitnessFunction(gene) < FitnessFunction(secondFittestGene))
+            else if (gene.damageTaken > secondFittestGene.damageTaken)
+            {
+                secondFittestGene = gene;
+            }
+        }
+        Debug.Log("*** Fittest gene : " + fittestGene.ToString());
+        Debug.Log("*** Second fittest gene : " + secondFittestGene.ToString());
+    }
+
+    private void SetFittestGenesWithOptimal()
+    {
+        if (!elitism)
+        {
+            fittestGene = null;
+            secondFittestGene = null;
+        }
+        foreach (var gene in genes)
+        {
+            if (fittestGene == null)
+            {
+                fittestGene = gene;
+            }
+            else if (FitnessFunctionWithOptimal(gene) < FitnessFunctionWithOptimal(fittestGene))
+            {
+                secondFittestGene = fittestGene;
+                fittestGene = gene;
+            }
+            else if (secondFittestGene == null)
+            {
+                secondFittestGene = gene;
+            }
+            else if (FitnessFunctionWithOptimal(gene) < FitnessFunctionWithOptimal(secondFittestGene))
             {
                 secondFittestGene = gene;
             }
         }
         
-        bestFit = FitnessFunction(fittestGene);
+        bestFit = FitnessFunctionWithOptimal(fittestGene);
         //Debug.Log("Fittest gene fitness value: " + bestFit);
         //Debug.Log("Fittest gene : " + fittestGene.ToString());
         //Debug.Log("Second fittest gene : " + secondFittestGene.ToString());
@@ -106,6 +163,7 @@ public class GeneticAlgorithm : MonoBehaviour
         {
             newGene.fireResistance = secondFittestGene.fireResistance;
         }
+
         if (Random.Range(0, 2) == 0)
         {
             newGene.natureResistance = fittestGene.natureResistance;
@@ -114,6 +172,7 @@ public class GeneticAlgorithm : MonoBehaviour
         {
             newGene.natureResistance = secondFittestGene.natureResistance;
         }
+
         if (Random.Range(0, 2) == 0)
         {
             newGene.waterResistance = fittestGene.waterResistance;
@@ -124,7 +183,7 @@ public class GeneticAlgorithm : MonoBehaviour
         }
 
         newGene = BalanceGene(newGene);
-        
+
         return newGene;
     }
 
@@ -171,7 +230,7 @@ public class GeneticAlgorithm : MonoBehaviour
 
     private float MutatePlusMinus(float plus, float minus)
     {
-        float change = Mathf.Round(Random.Range(mutationMin, mutationMax) * 100f) / 100f;
+        float change = (float)System.Math.Round(Random.Range(mutationMin, mutationMax), 2);
 
         if (1 - plus >= change && minus >= change)
         {
@@ -183,12 +242,12 @@ public class GeneticAlgorithm : MonoBehaviour
         }
         else
         {
-            return plus;
+            return 1 - plus;
         }
     }
 
     // Lower fitness score is better
-    private float FitnessFunction(BaseEnemy.Gene gene)
+    private float FitnessFunctionWithOptimal(BaseEnemy.Gene gene)
     {
         return (float)System.Math.Round(
         Mathf.Abs(gene.fireResistance - _optimalGene.fireResistance) +
@@ -206,7 +265,8 @@ public class GeneticAlgorithm : MonoBehaviour
         {
             fireResistance = random1,
             natureResistance = random2,
-            waterResistance = random3
+            waterResistance = random3,
+            distanceWalked = 0
         };
 
         randomGene = BalanceGene(randomGene);
