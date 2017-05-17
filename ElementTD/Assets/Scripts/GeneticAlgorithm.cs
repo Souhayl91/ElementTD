@@ -39,6 +39,11 @@ public class GeneticAlgorithm : MonoBehaviour
         {
             genes.Add(RandomGene());
         }
+
+        for (int i = 0; i < genes.Count; i++)
+        {
+            GameManager.instance.data.allGenes.Add(genes[i]);
+        }
     }
 
     public void AddGene(BaseEnemy.Gene gene)
@@ -64,6 +69,11 @@ public class GeneticAlgorithm : MonoBehaviour
         }
         //Debug.Log("Mutate count: " + _debugMutateCount);
         genes = _newGenes;
+        for (int i = 0; i < genes.Count; i++)
+        {
+            GameManager.instance.data.allGenes.Add(genes[i]);
+        }
+        
     }
 
     public void CreateNewGenerationWithOptimal()
@@ -83,6 +93,7 @@ public class GeneticAlgorithm : MonoBehaviour
         }
         //Debug.Log("Mutate count: " + _debugMutateCount);
         genes = _newGenes;
+      
     }
 
     private void SetFittestGenes()

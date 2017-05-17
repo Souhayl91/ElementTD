@@ -79,6 +79,11 @@ public class GameManager : MonoBehaviour
 	    {
 	        NewGeneration();
 	    }
+	    if (Input.GetKeyDown(KeyCode.S))
+	    {
+	        data.SaveData();
+	    }
+
         data.goldText.text = "Gold: " + data.GetGold();
 	    data.playerHPText.text = "Player HP: " + data.GetHP();
     }
