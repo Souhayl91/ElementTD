@@ -27,6 +27,8 @@ public class BaseEnemy : MonoBehaviour
         }
     }
 
+    public GameObject uiElement = null;
+
     //Attributes
     [SerializeField] protected float _maxHealth = 50f;
     protected float _health;

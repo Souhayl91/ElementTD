@@ -85,18 +85,14 @@ public class WaveManager : MonoBehaviour
             (int)(enemy.GetComponent<EnemyNormal>().gene.fireResistance * 100) +
             "% " + (int)(enemy.GetComponent<EnemyNormal>().gene.waterResistance * 100) +
             "% " + (int)(enemy.GetComponent<EnemyNormal>().gene.natureResistance * 100) + "%";
+        enemy.GetComponent<EnemyNormal>().uiElement = element;
         enemiesUI.Add(element);
     }
 
     public void RemoveEnemy(GameObject enemy)
     {
         int index = enemies.IndexOf(enemy);
-        GameObject uielement = null;
-        
-        if (enemiesUI.ElementAt(index) != null)
-        {
-            uielement = enemiesUI.ElementAt(index);
-        }
+        GameObject uielement = enemy.GetComponent<EnemyNormal>().uiElement;
         
         if (uielement != null)
         {
