@@ -18,13 +18,6 @@ public class BaseEnemy : MonoBehaviour
         {
             return "wRes: " + waterResistance + " fRes: " + fireResistance + " nRes: " + natureResistance + " damage taken: " + damageTaken;
         }
-
-        public void RoundGenes()
-        {
-            fireResistance = (float)System.Math.Round(fireResistance, 2);
-            natureResistance = (float)System.Math.Round(natureResistance, 2);
-            waterResistance = (float)System.Math.Round(waterResistance, 2);
-        }
     }
 
     //Attributes
@@ -38,7 +31,13 @@ public class BaseEnemy : MonoBehaviour
     //private float _distanceWalked;
 
     //Element resistance
+<<<<<<< HEAD
     public Gene gene = new Gene();
+=======
+    public float _waterResistance;
+    public float _fireResistance;
+    public float _natureResistance;
+>>>>>>> ColoredMinions
 
     //Move target
     [SerializeField]
@@ -61,10 +60,27 @@ public class BaseEnemy : MonoBehaviour
     }
 
     // Use this for initialization
+<<<<<<< HEAD
+    void Start () {
+        Debug.Log("Health: " + _maxHealth + " Gold: " + _goldValue + " " + gene.ToString());
+=======
     void Start ()
     {
-        
-        //Debug.Log("Health: " + _maxHealth + " Gold: " + _goldValue + " gene: " + gene.ToString());
+        _waterResistance = 0.7f;
+        _fireResistance = 0.3f;
+        _natureResistance = 0.0f;
+
+        Color color = new Color();
+
+        color.r = _fireResistance;
+        color.g = _natureResistance;
+        color.b = _waterResistance;
+        color.a = 1;
+
+        GetComponent<SpriteRenderer>().color = color;
+        Debug.Log("Health: " + _maxHealth + " Gold: " + _goldValue + " wRes: " + _waterResistance + 
+                " fRes: " + _fireResistance + " nRes: " + _natureResistance);
+>>>>>>> ColoredMinions
         _health = _maxHealth;
         _healthBarTransform = healthBar.GetComponent<Transform>();
         
@@ -84,20 +100,6 @@ public class BaseEnemy : MonoBehaviour
             GetNextWayPoint();
         }
     }
-
-    public void SetColor()
-    {
-        Color color = new Color();
-
-        gene.RoundGenes();
-        color.r = gene.fireResistance;
-        color.g = gene.natureResistance;
-        color.b = gene.waterResistance;
-        color.a = 1;
-
-        GetComponent<SpriteRenderer>().color = color;
-    }
-
     void GetNextWayPoint()
     {
         _wavePointIndex++;
@@ -133,17 +135,24 @@ public class BaseEnemy : MonoBehaviour
 
         if (_health <= 0)
         {
+            //TODO: THIS IS WHERE THE ENEMY DIES
             GameManager.instance.data.IncreaseGold(_goldValue);
+<<<<<<< HEAD
             GameManager.instance.genetics.AddGene(gene);
 
-            //TODO: FIX THIS PLEASE 
-            GameManager.instance.waveManager.RemoveEnemy(this.gameObject);
-            //int index = GameManager.instance.waveManager.enemies.IndexOf(this.gameObject);
-            //Destroy(GameManager.instance.waveManager.enemiesUI[index]);
-            //GameManager.instance.waveManager.enemiesUI.RemoveAt(index);
-            //GameManager.instance.waveManager.enemies.RemoveAt(index);
-            //GameManager.instance.waveManager.enemies.Remove(this.gameObject);
+=======
 
+            //TODO: FIX THIS PLEASE 
+            int index = GameManager.instance.waveManager.enemies.IndexOf(this.gameObject);
+            Destroy(GameManager.instance.waveManager.enemiesUI[index]);
+            GameManager.instance.waveManager.enemiesUI.RemoveAt(index);
+            GameManager.instance.waveManager.enemies.RemoveAt(index);
+            
+            Debug.Log("Enemies " + GameManager.instance.waveManager.enemies.Count);
+            Debug.Log("Enemy UI " + GameManager.instance.waveManager.enemiesUI.Count);
+            GameManager.instance.waveManager.enemies.Remove(this.gameObject);
+            
+>>>>>>> ColoredMinions
             Destroy(this.gameObject);
             
             return;

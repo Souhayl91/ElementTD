@@ -5,7 +5,6 @@ using UnityEngine;
 public class EnemyFactory : MonoBehaviour
 {
 
-<<<<<<< HEAD
     //public GameObject fireEnemy;
     public GameObject normalEnemy;
     //public GameObject natureEnemy;
@@ -17,15 +16,6 @@ public class EnemyFactory : MonoBehaviour
 
     // Use this for initialization
     void Start () {
-=======
-    public GameObject fireEnemy;
-    public GameObject waterEnemy;
-    public GameObject natureEnemy;
-    public List<GameObject> enemies;
-    
-	// Use this for initialization
-	void Start () {
->>>>>>> origin/Development
 		
 	}
 	
@@ -40,21 +30,27 @@ public class EnemyFactory : MonoBehaviour
         _spawnRotation = GameManager.instance.wavePoint.points[0].rotation;
     }
 
-    public void SpawnEnemy()
+    public void SpawnEnemy(BaseEnemy.Gene gene)
     {
-<<<<<<< HEAD
-        normalEnemy = CreateEnemy(normalEnemy);
+        normalEnemy = CreateEnemy(normalEnemy, gene);
         Instantiate(normalEnemy, _spawnPosition, _spawnRotation);
     }
 
-    public GameObject CreateEnemy(GameObject enemy)
+    public GameObject CreateEnemy(GameObject enemy, BaseEnemy.Gene gene)
     {
         //TODO: Decide health with some formula
         //TODO: Decide gold value by some formula
 
         //TODO: Set the resistances using genetic algorithm
 
-        enemy.GetComponent<EnemyNormal>().SetStats(43f + 7f * _waveCount, 10 + (int)(1 * _waveCount), 0.3f, 0.3f, 0.4f);
+<<<<<<< HEAD
+        float health = 43f + 7f*_waveCount;
+        int gold = 5 + (int) (1*_waveCount);
+        enemy.GetComponent<EnemyNormal>().SetStats(health, gold, gene.waterResistance, gene.fireResistance, gene.natureResistance);
+        //enemy.GetComponent<EnemyNormal>().SetStats(50f, 5, gene.waterResistance, gene.fireResistance, gene.natureResistance);
+=======
+        enemy.GetComponent<EnemyNormal>().SetStats(43f + 7f * _waveCount, 10 + (int)(1 * _waveCount), 0.4f, 0.2f, 0.4f);
+>>>>>>> ColoredMinions
 
         return enemy;
     }
@@ -62,8 +58,5 @@ public class EnemyFactory : MonoBehaviour
     public void SetWave(int wavecount)
     {
         _waveCount = wavecount;
-=======
-        Instantiate(waterEnemy, Waypoint.points[0].position, Waypoint.points[0].rotation);
->>>>>>> origin/Development
     }
 }
