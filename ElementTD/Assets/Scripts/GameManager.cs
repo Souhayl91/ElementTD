@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public GameObject wayPointsHolder;
     public Waypoint wavePoint;
     public GeneticAlgorithm genetics;
-    private WaveManager _waveManager;
+    public WaveManager waveManager;
     [SerializeField] private int _startingGold;
     [SerializeField] private int _startingHP = 50;
 
@@ -36,9 +36,9 @@ public class GameManager : MonoBehaviour
 
         genetics = gameObject.AddComponent<GeneticAlgorithm>();
         genetics.CreateNewRandomPop();
+        waveManager = gameObject.AddComponent<WaveManager>();
+        waveManager.StartWaveCoroutine();
 
-        _waveManager = gameObject.AddComponent<WaveManager>();
-        _waveManager.StartWaveCoroutine();
     }
 
     public void IncreaseGameSpeed()

@@ -54,8 +54,22 @@ public class BaseEnemy : MonoBehaviour
     }
 
     // Use this for initialization
-    void Start () {
-        Debug.Log("Health: " + _maxHealth + " Gold: " + _goldValue + " " + gene.ToString());
+    void Start ()
+    {
+        _waterResistance = 0.7f;
+        _fireResistance = 0.3f;
+        _natureResistance = 0.0f;
+
+        Color color = new Color();
+
+        color.r = _fireResistance;
+        color.g = _natureResistance;
+        color.b = _waterResistance;
+        color.a = 1;
+
+        GetComponent<SpriteRenderer>().color = color;
+        Debug.Log("Health: " + _maxHealth + " Gold: " + _goldValue + " wRes: " + _waterResistance + 
+                " fRes: " + _fireResistance + " nRes: " + _natureResistance);
         _health = _maxHealth;
         _healthBarTransform = healthBar.GetComponent<Transform>();
         
@@ -114,7 +128,19 @@ public class BaseEnemy : MonoBehaviour
             GameManager.instance.data.IncreaseGold(_goldValue);
             GameManager.instance.genetics.AddGene(gene);
 
+
+            //TODO: FIX THIS PLEASE 
+            int index = GameManager.instance.waveManager.enemies.IndexOf(this.gameObject);
+            Destroy(GameManager.instance.waveManager.enemiesUI[index]);
+            GameManager.instance.waveManager.enemiesUI.RemoveAt(index);
+            GameManager.instance.waveManager.enemies.RemoveAt(index);
+            
+            Debug.Log("Enemies " + GameManager.instance.waveManager.enemies.Count);
+            Debug.Log("Enemy UI " + GameManager.instance.waveManager.enemiesUI.Count);
+            GameManager.instance.waveManager.enemies.Remove(this.gameObject);
+            
             Destroy(this.gameObject);
+            
             return;
         }
 
