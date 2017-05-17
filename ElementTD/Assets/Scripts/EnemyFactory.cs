@@ -38,15 +38,9 @@ public class EnemyFactory : MonoBehaviour
 
     public GameObject CreateEnemy(GameObject enemy, BaseEnemy.Gene gene)
     {
-        //TODO: Decide health with some formula
-        //TODO: Decide gold value by some formula
-
-        //TODO: Set the resistances using genetic algorithm
-
-        float health = 43f + 7f*_waveCount;
-        int gold = 5 + (int) (1*_waveCount);
+        float health = 47 + _waveCount * (10 + (_waveCount / 7) * 2);
+        int gold = 5 + _waveCount / 5;
         enemy.GetComponent<EnemyNormal>().SetStats(health, gold, gene.waterResistance, gene.fireResistance, gene.natureResistance);
-        //enemy.GetComponent<EnemyNormal>().SetStats(50f, 5, gene.waterResistance, gene.fireResistance, gene.natureResistance);
         enemy.GetComponent<EnemyNormal>().SetColor();
 
         return enemy;

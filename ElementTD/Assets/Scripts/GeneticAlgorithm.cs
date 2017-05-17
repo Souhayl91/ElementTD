@@ -6,8 +6,9 @@ public class GeneticAlgorithm : MonoBehaviour
 {
     private int populationSize = 10;
     private float mutationChance = .8f;
-    private float mutationMin = .01f;
-    private float mutationMax = .2f;
+    private float flipMutationChance = 0.03f;
+    private float mutationMin = .1f;
+    private float mutationMax = .3f;
 
     public List<BaseEnemy.Gene> genes = new List<BaseEnemy.Gene>();
     private List<BaseEnemy.Gene> _currentPopulationGenes = new List<BaseEnemy.Gene>();
@@ -112,8 +113,8 @@ public class GeneticAlgorithm : MonoBehaviour
                 secondFittestGene = gene;
             }
         }
-        Debug.Log("*** Fittest gene : " + fittestGene.ToString());
-        Debug.Log("*** Second fittest gene : " + secondFittestGene.ToString());
+        //Debug.Log("*** Fittest gene : " + fittestGene.ToString());
+        //Debug.Log("*** Second fittest gene : " + secondFittestGene.ToString());
     }
 
     private void SetFittestGenesWithOptimal()
@@ -189,6 +190,35 @@ public class GeneticAlgorithm : MonoBehaviour
 
     private BaseEnemy.Gene Mutate(BaseEnemy.Gene gene)
     {
+        if (Random.Range(0, 0.99f) < flipMutationChance && (gene.fireResistance >= 0.8f || gene.waterResistance >= 0.8f || gene.natureResistance >= 0.8f))
+        {
+            if (gene.fireResistance >= 0.8f)
+            {
+                if (gene.waterResistance < gene.natureResistance)
+                    gene.SwapFireWater();
+                else
+                    gene.SwapNatureFire();
+            }
+            else if (gene.waterResistance >= 0.8f)
+            {
+                if (gene.fireResistance < gene.natureResistance)
+                {
+                    gene.SwapFireWater();
+                }
+                else
+                {
+                    gene.SwapWaterNature();
+                }
+            }
+            else if (gene.natureResistance >= 0.8f)
+            {
+                if (gene.waterResistance < gene.fireResistance)
+                    gene.SwapWaterNature();
+                else
+                    gene.SwapNatureFire();
+            }
+            return gene;
+        }
         int mutationType = Random.Range(0, 6);
         float change = 0;
         switch (mutationType)

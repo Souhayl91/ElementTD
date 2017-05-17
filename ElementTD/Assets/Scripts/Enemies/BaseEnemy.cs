@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class BaseEnemy : MonoBehaviour
@@ -24,6 +25,27 @@ public class BaseEnemy : MonoBehaviour
             fireResistance = (float)System.Math.Round(fireResistance, 2);
             natureResistance = (float)System.Math.Round(natureResistance, 2);
             waterResistance = (float)System.Math.Round(waterResistance, 2);
+        }
+
+        public void SwapFireWater()
+        {
+            float temp = fireResistance;
+            fireResistance = waterResistance;
+            waterResistance = temp;
+        }
+
+        public void SwapNatureFire()
+        {
+            float temp = natureResistance;
+            natureResistance = fireResistance;
+            fireResistance = temp;
+        }
+
+        public void SwapWaterNature()
+        {
+            float temp = waterResistance;
+            waterResistance = natureResistance;
+            natureResistance = temp;
         }
     }
 

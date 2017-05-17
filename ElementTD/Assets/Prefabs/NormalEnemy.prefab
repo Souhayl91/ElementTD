@@ -129,9 +129,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdcc095a9c0b97e4997601f8d8cd5989, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 50
+  uiElement: {fileID: 0}
+  _maxHealth: 415
   _speed: 3
-  _goldValue: 10
+  _goldValue: 9
+  gene:
+    waterResistance: 0.83
+    fireResistance: 0
+    natureResistance: 0.17
+    distanceWalked: 0
+    damageTaken: 0
   _target: {fileID: 0}
   _wavePointIndex: 0
   healthBar: {fileID: 1732822433371640}
@@ -208,7 +215,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1fb11c774be2ff648ad9f2deef9802fa, type: 3}
-  m_Color: {r: 0.4186851, g: 0.45770192, b: 0.4705882, a: 1}
+  m_Color: {r: 0, g: 0.17, b: 0.83, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
