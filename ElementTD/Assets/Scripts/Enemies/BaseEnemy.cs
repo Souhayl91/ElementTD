@@ -1,9 +1,23 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BaseEnemy : MonoBehaviour
 {
+    [System.Serializable]
+    public class Gene
+    {
+        public float waterResistance = 0.3f;
+        public float fireResistance;
+        public float natureResistance;
+
+        public new string ToString()
+        {
+            return "wRes: " + waterResistance + " fRes: " + fireResistance + " nRes: " + natureResistance + " total: " + (waterResistance + fireResistance + natureResistance);
+        }
+    }
+
     //Attributes
     [SerializeField] protected float _maxHealth = 50f;
     protected float _health;
@@ -15,9 +29,7 @@ public class BaseEnemy : MonoBehaviour
     private float _distanceWalked;
 
     //Element resistance
-    public float _waterResistance = .7f;
-    public float _fireResistance = .3f;
-    public float _natureResistance = 0f;
+    public Gene gene = new Gene();
 
     //Move target
     [SerializeField]
@@ -31,16 +43,17 @@ public class BaseEnemy : MonoBehaviour
 
     public void SetStats(float startingHealth, int goldWorth, float wRes, float fRes, float nRes)
     {
+        Debug.Log("WTF - Health: " + _maxHealth + " Gold: " + _goldValue + " wRes: " + gene.waterResistance + " fRes: " + gene.fireResistance + " nRes: " + gene.natureResistance);
         _maxHealth = startingHealth;
         _goldValue = goldWorth;
-        _waterResistance = wRes;
-        _fireResistance = fRes;
-        _natureResistance = nRes;
+        gene.waterResistance = wRes;
+        gene.fireResistance = fRes;
+        gene.natureResistance = nRes;
     }
 
     // Use this for initialization
     void Start () {
-        Debug.Log("Health: " + _maxHealth + " Gold: " + _goldValue + " wRes: " + _waterResistance + " fRes: " + _fireResistance + " nRes: " + _natureResistance);
+        Debug.Log("Health: " + _maxHealth + " Gold: " + _goldValue + " wRes: " + gene.waterResistance + " fRes: " + gene.fireResistance + " nRes: " + gene.natureResistance);
         _health = _maxHealth;
         _healthBarTransform = healthBar.GetComponent<Transform>();
         
@@ -97,6 +110,7 @@ public class BaseEnemy : MonoBehaviour
         {
             //TODO: THIS IS WHERE THE ENEMY DIES
             GameManager.instance.data.IncreaseGold(_goldValue);
+
             Destroy(this.gameObject);
             return;
         }
@@ -117,11 +131,11 @@ public class BaseEnemy : MonoBehaviour
     protected void OnTriggerEnter2D(Collider2D other)
     {
 
-        if (other.gameObject.GetComponent<BulletWater>() != null)
+        if (other.gameObject.GetComponent<BulletWater>() != null && other.gameObject.GetComponent<BulletWater>()._target == this.gameObject.GetComponent<Transform>())
         {
             
             BulletWater bullet = other.gameObject.GetComponent<BulletWater>();
-            DecreaseHealth(bullet.GetDamage() * (1 - _waterResistance));
+            DecreaseHealth(bullet.GetDamage() * (1 - gene.waterResistance));
             bullet.HitTarget();
             
         }
@@ -129,14 +143,14 @@ public class BaseEnemy : MonoBehaviour
         if (other.gameObject.GetComponent<BulletFire>() != null)
         {
             BulletFire bullet = other.gameObject.GetComponent<BulletFire>();
-            DecreaseHealth(bullet.GetDamage() * (1 - _fireResistance));
+            DecreaseHealth(bullet.GetDamage() * (1 - gene.fireResistance));
             bullet.HitTarget();
             
         }
         if (other.gameObject.GetComponent<BulletNature>() != null)
         {
             BulletNature bullet = other.gameObject.GetComponent<BulletNature>();
-            DecreaseHealth(bullet.GetDamage() * (1 - _natureResistance));
+            DecreaseHealth(bullet.GetDamage() * (1 - gene.natureResistance));
             bullet.HitTarget();
         }
     }
