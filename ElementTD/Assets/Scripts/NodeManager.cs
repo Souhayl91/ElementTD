@@ -11,7 +11,7 @@ public class NodeManager : MonoBehaviour
     private int _nodeNumber;
     public Node nodeInstance;
     public Node selectedNode;
-    
+    private Node _lastNode;
     // Use this for initialization
     void Start ()
     {
@@ -45,12 +45,12 @@ public class NodeManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            
 
             if (hit != null && hit.collider != null && hit.collider.tag == "Node")
             {
-                CycleNodes();
-                
-                
+
+                    CycleNodes();
             }
 
          
@@ -64,19 +64,25 @@ public class NodeManager : MonoBehaviour
     {
         
         foreach (Node node in nodes)
-        {
-            
-            if (node.isClicked)
             {
-                if (selectedNode != null)
+
+                if (node.isClicked && node != _lastNode)
                 {
-                    selectedNode.isClicked = false;
+
+                    selectedNode = node;
+
                 }
-                selectedNode = node;
-                
- 
             }
+        if (_lastNode != null && _lastNode != selectedNode)
+        {
+            _lastNode.isClicked = false;
         }
+        if (selectedNode != null && _lastNode != selectedNode)
+        {
+            _lastNode = selectedNode;
+
+        }
+        if (_lastNode != null && selectedNode != null) Debug.Log(_lastNode.isClicked);
     }
 
 }
