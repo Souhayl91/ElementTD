@@ -8,8 +8,12 @@ public class GameManager : MonoBehaviour
     public Data data;
     public GameObject wayPointsHolder;
     public Waypoint wavePoint;
+<<<<<<< HEAD
     public GeneticAlgorithm genetics;
+    private WaveManager _waveManager;
+=======
     public WaveManager waveManager;
+>>>>>>> ColoredMinions
     [SerializeField] private int _startingGold;
     [SerializeField] private int _startingHP = 50;
 
@@ -34,11 +38,16 @@ public class GameManager : MonoBehaviour
         wavePoint = gameObject.AddComponent<Waypoint>();
         wavePoint.SetWayPoints(wayPointsHolder);
 
+<<<<<<< HEAD
         genetics = gameObject.AddComponent<GeneticAlgorithm>();
         genetics.CreateNewRandomPop();
+
+        _waveManager = gameObject.AddComponent<WaveManager>();
+        _waveManager.StartWaveCoroutine();
+=======
         waveManager = gameObject.AddComponent<WaveManager>();
         waveManager.StartWaveCoroutine();
-
+>>>>>>> ColoredMinions
     }
 
     public void IncreaseGameSpeed()

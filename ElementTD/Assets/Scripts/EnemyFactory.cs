@@ -30,20 +30,24 @@ public class EnemyFactory : MonoBehaviour
         _spawnRotation = GameManager.instance.wavePoint.points[0].rotation;
     }
 
-    public void SpawnEnemy()
+    public GameObject SpawnEnemy(BaseEnemy.Gene gene)
     {
-        normalEnemy = CreateEnemy(normalEnemy);
-        Instantiate(normalEnemy, _spawnPosition, _spawnRotation);
+        normalEnemy = CreateEnemy(normalEnemy, gene);
+        return Instantiate(normalEnemy, _spawnPosition, _spawnRotation);
     }
 
-    public GameObject CreateEnemy(GameObject enemy)
+    public GameObject CreateEnemy(GameObject enemy, BaseEnemy.Gene gene)
     {
         //TODO: Decide health with some formula
         //TODO: Decide gold value by some formula
 
         //TODO: Set the resistances using genetic algorithm
 
-        enemy.GetComponent<EnemyNormal>().SetStats(43f + 7f * _waveCount, 10 + (int)(1 * _waveCount), 0.3f, 0.3f, 0.4f);
+        float health = 43f + 7f*_waveCount;
+        int gold = 5 + (int) (1*_waveCount);
+        enemy.GetComponent<EnemyNormal>().SetStats(health, gold, gene.waterResistance, gene.fireResistance, gene.natureResistance);
+        //enemy.GetComponent<EnemyNormal>().SetStats(50f, 5, gene.waterResistance, gene.fireResistance, gene.natureResistance);
+        enemy.GetComponent<EnemyNormal>().SetColor();
 
         return enemy;
     }

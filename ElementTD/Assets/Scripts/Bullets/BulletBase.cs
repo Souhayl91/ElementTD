@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulletBase : MonoBehaviour
 {
-    private Transform _target;
+    public Transform _target;
     [SerializeField] private float _speed = 10f;
     private float _damage;
 
