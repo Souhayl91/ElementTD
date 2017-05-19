@@ -164,7 +164,7 @@ public class Data : MonoBehaviour
     private string GetPath()
     {
         int index = GetFilesCount(GetRootPath());
-        return Application.dataPath + "/CSV/" + "Session" + "_" + index + ".csv";
+        return Application.dataPath + "/CSV/" + "Session_" + index + ".csv";
 
         //for android:  return Application.persistentDataPath+"data.csv";
         //for iphone: return Application.dataPath +"/"+"data.csv";
