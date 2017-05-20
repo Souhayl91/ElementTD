@@ -107,9 +107,17 @@ public class Shop : MonoBehaviour
 
     public void UpgradeTower()
     {
-        if (GameManager.instance.data.DecreaseGold(nodeManager.selectedNode._tower.GetComponent<TowerBase>().upgradegoldCost))
+        if (nodeManager.selectedNode._tower != null)
         {
-           nodeManager.selectedNode._tower.GetComponent<TowerBase>().Upgrade();
+            if (GameManager.instance.data.DecreaseGold(nodeManager.selectedNode._tower.GetComponent<TowerBase>()
+                .upgradegoldCost))
+            {
+                nodeManager.selectedNode._tower.GetComponent<TowerBase>().Upgrade();
+            }
+        }
+        else
+        {
+            Debug.Log("Select a tower to upgrade");
         }
     }
 }
