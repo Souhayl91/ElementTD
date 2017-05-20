@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     public float gameSpeed = 1f; // 15 is max
 
     public static GameManager instance;
+    private bool gameStarted;
+
     // Use this for initialization
     void Start ()
     {
@@ -37,7 +39,6 @@ public class GameManager : MonoBehaviour
         genetics = gameObject.AddComponent<GeneticAlgorithm>();
         genetics.CreateNewRandomPop();
         waveManager = gameObject.AddComponent<WaveManager>();
-        waveManager.StartWaveCoroutine();
 
     }
 
@@ -76,9 +77,14 @@ public class GameManager : MonoBehaviour
 	// Update is called once per frame
 	void Update () {
 	    if (Input.GetKeyDown(KeyCode.Space))
-	    {
-	        NewGeneration();
-	    }
+        {
+            if (!gameStarted)
+            {
+                Debug.Log("Starting first wave in 5 seconds.");
+                waveManager.StartWaveCoroutine();
+                gameStarted = true;
+            }
+        }
 	    if (Input.GetKeyDown(KeyCode.S))
 	    {
 	        data.SaveData();

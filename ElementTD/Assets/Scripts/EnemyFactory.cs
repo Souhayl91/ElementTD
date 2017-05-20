@@ -2,27 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyFactory : MonoBehaviour
+class EnemyFactory : MonoBehaviour, IFactory
 {
 
-    //public GameObject fireEnemy;
     public GameObject normalEnemy;
-    //public GameObject natureEnemy;
-    //public List<BaseEnemy> enemies;
-
     private Vector3 _spawnPosition;
     private Quaternion _spawnRotation;
     private int _waveCount;
-
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     public void SetSpawnPosition()
     {
@@ -30,25 +16,18 @@ public class EnemyFactory : MonoBehaviour
         _spawnRotation = GameManager.instance.wavePoint.points[0].rotation;
     }
 
-    public GameObject SpawnEnemy(BaseEnemy.Gene gene)
+    public GameObject Spawn(BaseEnemy.Gene gene)
     {
-        normalEnemy = CreateEnemy(normalEnemy, gene);
+        normalEnemy = Create(normalEnemy, gene);
         return Instantiate(normalEnemy, _spawnPosition, _spawnRotation);
     }
 
-    public GameObject CreateEnemy(GameObject enemy, BaseEnemy.Gene gene)
+    public GameObject Create(GameObject enemy, BaseEnemy.Gene gene)
     {
-        //TODO: Decide health with some formula
-        //TODO: Decide gold value by some formula
-
-        //TODO: Set the resistances using genetic algorithm
-
-        float health = 43f + 7f*_waveCount;
-        int gold = 5 + (int) (1*_waveCount);
+        float health = 47 + _waveCount * (10 + (_waveCount / 7) * 2);
+        int gold = 5 + _waveCount / 5;
         enemy.GetComponent<EnemyNormal>().SetStats(health, gold, gene.waterResistance, gene.fireResistance, gene.natureResistance);
-        //enemy.GetComponent<EnemyNormal>().SetStats(50f, 5, gene.waterResistance, gene.fireResistance, gene.natureResistance);
         enemy.GetComponent<EnemyNormal>().SetColor();
-
         return enemy;
     }
 
@@ -56,4 +35,5 @@ public class EnemyFactory : MonoBehaviour
     {
         _waveCount = wavecount;
     }
+
 }

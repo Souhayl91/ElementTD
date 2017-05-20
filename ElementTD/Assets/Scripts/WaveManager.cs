@@ -60,11 +60,12 @@ public class WaveManager : MonoBehaviour
             
             yield return new WaitForSeconds(_buildInterval / GameManager.instance.gameSpeed);
             _waveCount++;
+            Debug.Log("Wave: " + _waveCount + " Player HP: " + GameManager.instance.data.GetHP());
             _enemyFactory.SetWave(_waveCount);
 
             foreach (BaseEnemy.Gene gene in GameManager.instance.genetics.genes)
             {
-                GameObject enemy = _enemyFactory.SpawnEnemy(gene);
+                GameObject enemy = _enemyFactory.Spawn(gene);
                 AddUIElement(enemy);
                 enemies.Add(enemy);
                 yield return new WaitForSeconds(enemyInterval / GameManager.instance.gameSpeed);
@@ -91,13 +92,12 @@ public class WaveManager : MonoBehaviour
 
     public void RemoveEnemy(GameObject enemy)
     {
-        int index = enemies.IndexOf(enemy);
-        GameObject uielement = enemy.GetComponent<EnemyNormal>().uiElement;
+        GameObject uiElement = enemy.GetComponent<EnemyNormal>().uiElement;
         
-        if (uielement != null)
+        if (uiElement != null)
         {
-            enemiesUI.Remove(uielement);
-            Destroy(uielement);
+            enemiesUI.Remove(uiElement);
+            Destroy(uiElement);
         }
 
         enemies.Remove(enemy);
