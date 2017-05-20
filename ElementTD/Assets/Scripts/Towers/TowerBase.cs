@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,9 +10,11 @@ public class TowerBase : MonoBehaviour {
 
     private GameObject[] _enemies;
     private Transform _target;
-    [SerializeField] protected float _range = 7f;
+    [SerializeField] protected float _range = 5f;
     [SerializeField] protected float _fireRate = 1f;
     [SerializeField] protected float _damage = 10f;
+    [SerializeField] protected int _level = 1;
+    public int upgradegoldCost = 40;
     private float _fireCountDown;
 
     // Use this for initialization
@@ -81,6 +84,16 @@ public class TowerBase : MonoBehaviour {
         {
             _target = null;
         }
+    }
+
+    public void Upgrade()
+    {
+        _level += 1;
+        _range += ((_level + _range) / 4) * 0.1f;
+        _fireRate += ((_level + _fireRate) / 4) * 0.1f;
+        _damage = 10f + (float) Math.Pow(_level, 2);
+        upgradegoldCost = 40 * _level;
+        Debug.Log("values: " + "Level: " + _level + " Range: " + _range + " FireRate: " + _fireRate + " Damage: " + _damage + " Upgrade Cost: " + upgradegoldCost);
     }
 
     void OnDrawGizmosSelected()
