@@ -23,15 +23,17 @@ public class Node : MonoBehaviour
 
     void OnMouseDown()
     {
+        
         if (isClicked == false)
         {
+            
             _rend.material.color = hoverColor;  
             isClicked = true;
             
         }
         else if (isClicked == true)
         {
-
+            
           _rend.material.color = startColor;
             isClicked = false;
         }
