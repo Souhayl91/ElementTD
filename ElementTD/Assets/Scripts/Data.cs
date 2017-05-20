@@ -26,14 +26,12 @@ public class Data : MonoBehaviour
     {
         goldObject = GameObject.Find("Gold");
         goldText = goldObject.GetComponent<Text>();
-        
     }
 
     public void SetPlayerHPText()
     {
         playerHPObject = GameObject.Find("PlayerHP");
         playerHPText = playerHPObject.GetComponent<Text>();
-        
     }
 
     public void SetGold(int gold)
