@@ -6,7 +6,7 @@ public class Shop : MonoBehaviour
 {
     public NodeManager nodeManager;
     private GameObject _nodeManagerGameObject;
-    private int goldCost = 100;
+    private int goldCost = 80;
 
     void Start()
     {
