@@ -53,6 +53,7 @@ public class WaveManager : MonoBehaviour
         StartCoroutine(Spawner());
     }
 
+    //Cycle execution pattern
     IEnumerator Spawner()
     {
         while (true)
