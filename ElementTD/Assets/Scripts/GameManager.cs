@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     private bool gameStarted;
 
     // Use this for initialization
-    void Start ()
+    void Awake ()
     {
         if (instance != null)
         {
@@ -28,11 +28,9 @@ public class GameManager : MonoBehaviour
             return;
         }
         instance = this;
-        data = gameObject.AddComponent<Data>();
-        data.SetGold(_startingGold);
-        data.SetHP(_startingHP);
-        data.SetGoldText();
-        data.SetPlayerHPText();
+       
+        gameObject.AddComponent<Data>();
+        data = new Data(50, 350, 1, 10);
 
         wavePoint = gameObject.AddComponent<Waypoint>();
         wavePoint.SetWayPoints(wayPointsHolder);
@@ -132,8 +130,15 @@ public class GameManager : MonoBehaviour
         }
 
 
-        data.goldText.text = "Gold: " + data.GetGold();
-	    data.playerHPText.text = "Player HP: " + data.GetHP();
+	    if (data.GetGoldText() != null)
+	    {
+	        data.SetGoldText("Gold: " + data.GetGold());
+        }
+
+        if (data.GetHPText() != null)
+	    {
+            data.SetHPText("Player HP: " + data.GetHP());
+        }
     }
 
     private void NewGeneration()

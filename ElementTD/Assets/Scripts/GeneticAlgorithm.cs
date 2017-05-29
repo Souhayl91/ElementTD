@@ -43,7 +43,7 @@ public class GeneticAlgorithm : MonoBehaviour
 
         for (int i = 0; i < genes.Count; i++)
         {
-            GameManager.instance.data.allGenes.Add(genes[i]);
+            GameManager.instance.data.GetAllGenes().Add(genes[i]);
         }
     }
 
@@ -72,7 +72,7 @@ public class GeneticAlgorithm : MonoBehaviour
         genes = _newGenes;
         for (int i = 0; i < genes.Count; i++)
         {
-            GameManager.instance.data.allGenes.Add(genes[i]);
+            GameManager.instance.data.GetAllGenes().Add(genes[i]);
         }
         
     }
@@ -140,6 +140,8 @@ public class GeneticAlgorithm : MonoBehaviour
                 secondFittestGene = gene;
             }
         }
+        GameManager.instance.data.GetFitestGenes().Add(fittestGene);
+        GameManager.instance.data.GetSecondFitestGenes().Add(secondFittestGene);
         //Debug.Log("*** Fittest gene : " + fittestGene.ToString());
         //Debug.Log("*** Second fittest gene : " + secondFittestGene.ToString());
     }

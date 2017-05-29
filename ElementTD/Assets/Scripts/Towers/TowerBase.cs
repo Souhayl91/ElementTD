@@ -22,6 +22,8 @@ public class TowerBase : MonoBehaviour {
     {
         //InvokeRepeating("UpdateTarget", 0f, 0.5f);
         bulletSpawn = GetComponentInChildren<Transform>().GetChild(0);
+        
+        GameManager.instance.data.GetAllTowers().Add(this.gameObject);
     }
 
     // Update is called once per frame
@@ -50,7 +52,7 @@ public class TowerBase : MonoBehaviour {
         _fireCountDown -= Time.deltaTime * GameManager.instance.gameSpeed;
     }
 
-    void Shoot()
+    protected virtual void Shoot()
     {
 
         GameObject newBullet = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation);
