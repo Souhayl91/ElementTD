@@ -52,7 +52,7 @@ public class TowerBase : MonoBehaviour {
         _fireCountDown -= Time.deltaTime * GameManager.instance.gameSpeed;
     }
 
-    void Shoot()
+    protected virtual void Shoot()
     {
 
         GameObject newBullet = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation);
