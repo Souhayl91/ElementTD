@@ -8,30 +8,68 @@ using System;
 
 public class Data : MonoBehaviour
 {
-    //Data
-    public List<string[]> rowData = new List<string[]>();
-    public List<BaseEnemy.Gene> allGenes = new List<BaseEnemy.Gene>();
-    private int generationIndex = 1;
-    private int generationList = 10;
-    //
-
+    private int _generationIndex;
+    private int _generationListIndex;
     private int _gold;
     private int _hp;
-    private GameObject goldObject;
-    public Text goldText;
-    private GameObject playerHPObject;
-    public Text playerHPText;
 
-    public void SetGoldText()
+    private List<string[]> _rowData;
+    private List<BaseEnemy.Gene> _allGenes;
+    private List<BaseEnemy.Gene> _fitestGenes;
+    private List<BaseEnemy.Gene> _secondFitestGenes;
+
+    private List<GameObject> _allTowers;
+
+    private GameObject goldObject;
+    private Text _goldText;
+    private GameObject _playerHPObject;
+    private Text _playerHPText;
+
+    public Data(int hp, int gold, int generationIndex, int generationListIndex)
     {
+        this._hp = hp;
+        this._gold = gold;
+        this._generationIndex = generationIndex;
+        this._generationListIndex = generationListIndex;
+
         goldObject = GameObject.Find("Gold");
-        goldText = goldObject.GetComponent<Text>();
+        _goldText = goldObject.GetComponent<Text>();
+
+        _playerHPObject = GameObject.Find("PlayerHP");
+        _playerHPText = _playerHPObject.GetComponent<Text>();
+
+        _rowData = new List<string[]>();
+        _allGenes = new List<BaseEnemy.Gene>();
+        _fitestGenes = new List<BaseEnemy.Gene>();
+        _secondFitestGenes = new List<BaseEnemy.Gene>();
+
+        _allTowers = new List<GameObject>();
+    }
+
+    public void SetGoldText(string text)
+    {
+        _goldText.text = text;
+    }
+
+    public void SetHPText(string text)
+    {
+        _playerHPText.text = text;
+    }
+
+    public Text GetGoldText()
+    {
+        return _goldText;
+    }
+
+    public Text GetHPText()
+    {
+        return _playerHPText;
     }
 
     public void SetPlayerHPText()
     {
-        playerHPObject = GameObject.Find("PlayerHP");
-        playerHPText = playerHPObject.GetComponent<Text>();
+        _playerHPObject = GameObject.Find("PlayerHP");
+        _playerHPText = _playerHPObject.GetComponent<Text>();
     }
 
     public void SetGold(int gold)
@@ -85,54 +123,123 @@ public class Data : MonoBehaviour
         _hp += amount;
     }
 
+    public List<GameObject> GetAllTowers()
+    {
+        return _allTowers;
+    }
+    public List<BaseEnemy.Gene> GetAllGenes()
+    {
+        return _allGenes;
+    }
+
+    public List<BaseEnemy.Gene> GetFitestGenes()
+    {
+        return _fitestGenes;
+    }
+
+    public List<BaseEnemy.Gene> GetSecondFitestGenes()
+    {
+        return _secondFitestGenes;
+    }
+
+    public int GetGenerationIndex()
+    {
+        return _generationIndex;
+    }
+
+    public int GetGenerationListIndex()
+    {
+        return _generationListIndex;
+    }
+
+    
     public void SaveData()
     {
 
         //Set up the headers of the CSV file
-        string[] rowDataTemp = new string[4];
-        rowDataTemp[0] = "Generation " + generationIndex;
+        string[] rowDataTemp = new string[7];
+        rowDataTemp[0] = "Generation " + _generationIndex;
         rowDataTemp[1] = "Fire resistance";
         rowDataTemp[2] = "Water resistance";
         rowDataTemp[3] = "Nature resistance";
-        rowData.Add(rowDataTemp);
+        rowDataTemp[4] = "Fire tower";
+        rowDataTemp[5] = "Water tower";
+        rowDataTemp[6] = "Nature tower";
+
+        _rowData.Add(rowDataTemp);
 
         //Filling the row with the enemy values
-        for (int i = 0; i < allGenes.Count; i++)
+        for (int i = 0; i < _allGenes.Count; i++)
         {
-            rowDataTemp = new string[4];
-            rowDataTemp[1] = allGenes[i].fireResistance * 100 + " %";
-            rowDataTemp[2] = allGenes[i].waterResistance * 100 + " %";
-            rowDataTemp[3] = allGenes[i].natureResistance * 100 + " %";
-            rowData.Add(rowDataTemp);
-            if (i == generationList)
-            {
-                generationIndex++;
 
-                //Empty row every generation
-                string[] empyRowDataTemp = new string[4];
-                empyRowDataTemp[0] = "";
-                empyRowDataTemp[1] = "";
-                empyRowDataTemp[2] = "";
-                empyRowDataTemp[3] = "";
-                rowData.Add(empyRowDataTemp);
+            if (i == (_generationListIndex - 9))
+            {
+                rowDataTemp = new string[5];
+                rowDataTemp[1] = _allGenes[i].fireResistance * 100 + " %";
+                rowDataTemp[2] = _allGenes[i].waterResistance * 100 + " %";
+                rowDataTemp[3] = _allGenes[i].natureResistance * 100 + " %";
+            }
+            else
+            {
+                rowDataTemp = new string[4];
+                rowDataTemp[1] = _allGenes[i].fireResistance * 100 + " %";
+                rowDataTemp[2] = _allGenes[i].waterResistance * 100 + " %";
+                rowDataTemp[3] = _allGenes[i].natureResistance * 100 + " %";
+            }
+            _rowData.Add(rowDataTemp);
+            if (i == _generationListIndex)
+            {
+                //Empty row every new generation
+                string[] splitGenerationRowDataTemp = new string[4];
+                splitGenerationRowDataTemp[0] = "";
+                splitGenerationRowDataTemp[1] = "";
+                splitGenerationRowDataTemp[2] = "";
+                splitGenerationRowDataTemp[3] = "";
+                _rowData.Add(splitGenerationRowDataTemp);
+
+                string[] fittestRowDataTemp = new string[4];
+                fittestRowDataTemp[0] = "Fitest gene";
+                fittestRowDataTemp[1] = _fitestGenes[_generationIndex - 1].fireResistance * 100 + " %";
+                fittestRowDataTemp[2] = _fitestGenes[_generationIndex - 1].waterResistance * 100 + " %";
+                fittestRowDataTemp[3] = _fitestGenes[_generationIndex - 1].natureResistance * 100 + " %";
+                _rowData.Add(fittestRowDataTemp);
+
+                string[] secondFitestRowDataTemp = new string[4];
+                secondFitestRowDataTemp[0] = "Second fitest gene";
+                secondFitestRowDataTemp[1] = _secondFitestGenes[_generationIndex - 1].fireResistance * 100 + " %";
+                secondFitestRowDataTemp[2] = _secondFitestGenes[_generationIndex - 1].fireResistance * 100 + " %";
+                secondFitestRowDataTemp[3] = _secondFitestGenes[_generationIndex - 1].fireResistance * 100 + " %";
+                _rowData.Add(secondFitestRowDataTemp);
+
+                //Empty row every new generation
+                string[] emptyRowDataTemp = new string[4];
+                emptyRowDataTemp[0] = "";
+                emptyRowDataTemp[1] = "";
+                emptyRowDataTemp[2] = "";
+                emptyRowDataTemp[3] = "";
+                _rowData.Add(emptyRowDataTemp);
 
                 //Next generation header
-                string[] newRowDataTemp = new string[4];
-                newRowDataTemp[0] = "Generation " + generationIndex;
+                string[] newRowDataTemp = new string[7];
+                newRowDataTemp[0] = "Generation " + (_generationIndex + 1);
                 newRowDataTemp[1] = "Fire resistance";
                 newRowDataTemp[2] = "Water resistance";
                 newRowDataTemp[3] = "Nature resistance";
-                rowData.Add(newRowDataTemp);
+                newRowDataTemp[4] = "Fire tower";
+                newRowDataTemp[5] = "Water tower";
+                newRowDataTemp[6] = "Nature tower";
+                _rowData.Add(newRowDataTemp);
 
-                generationList += 10;
+                _generationIndex++;
+                _generationListIndex += 10;
             }
         }
 
-        string[][] output = new string[rowData.Count][];
+        string[][] output = new string[_rowData.Count][];
 
         for (int i = 0; i < output.Length; i++)
         {
-            output[i] = rowData[i];
+            output[i] = _rowData[i];
         }
 
         int length = output.GetLength(0);

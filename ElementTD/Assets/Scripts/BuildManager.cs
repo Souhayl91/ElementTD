@@ -51,5 +51,8 @@ public class BuildManager : MonoBehaviour
     {
         GameObject towerToBuild = GetTowerToBuild();
         tower = Instantiate(towerToBuild, position, rotation);
+
+        GameManager.instance.data.GetAllTowers().Add(tower);
+
     }
 }
