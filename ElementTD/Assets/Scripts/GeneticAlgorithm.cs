@@ -97,6 +97,22 @@ public class GeneticAlgorithm : MonoBehaviour
       
     }
 
+    // Call this method after a wave has finished and before the new generation is created.
+    public List<BaseEnemy.Gene> Save()
+    {
+        if (genes.Count != populationSize)
+        {
+            Debug.LogError("Warning: gene memento is created with the wrong size");
+        }
+        return genes;
+    }
+
+    // Call this method before the new generation is created to revert back to an older generation
+    public void Restore(List<BaseEnemy.Gene> geneList)
+    {
+        genes = geneList;
+    }
+
     private void SetFittestGenes()
     {
         if (!elitism)

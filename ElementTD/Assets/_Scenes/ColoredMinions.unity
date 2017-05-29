@@ -44413,6 +44413,11 @@ Prefab:
       propertyPath: wayPointsHolder
       value: 
       objectReference: {fileID: 1704639556}
+    - target: {fileID: 114452561423477362, guid: 4283d5a0d1ced734dbf006fc2a79c520,
+        type: 2}
+      propertyPath: _startingGold
+      value: 700
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4283d5a0d1ced734dbf006fc2a79c520, type: 2}
   m_IsPrefabParent: 0

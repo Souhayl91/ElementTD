@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public Waypoint wavePoint;
     public GeneticAlgorithm genetics;
     public WaveManager waveManager;
+    public Caretaker careTaker;
     [SerializeField] private int _startingGold;
     [SerializeField] private int _startingHP = 50;
 
@@ -40,6 +41,36 @@ public class GameManager : MonoBehaviour
         genetics.CreateNewRandomPop();
         waveManager = gameObject.AddComponent<WaveManager>();
 
+        careTaker = gameObject.AddComponent<Caretaker>();
+    }
+
+    public void Save()
+    {
+        Memento memento = gameObject.AddComponent<Memento>();
+
+        // Save all relevant states
+        /*  TODO: full save state
+         *  -towers
+         *  -data
+         *  -waves
+         */
+        memento.SetGeneState(GameManager.instance.genetics.Save());
+
+        // Store the memento with all the states in the caretaker
+        careTaker.AddMemento(memento);
+    }
+
+    public void Restore()
+    {
+        Memento memento = careTaker.GetLastMemento();
+
+        // Restore all relevent states from the memento
+        /*  TODO: full restore state
+         *  -towers
+         *  -data
+         *  -waves
+         */
+        GameManager.instance.genetics.Restore(memento.GetGeneState());
     }
 
     public void IncreaseGameSpeed()
@@ -88,7 +119,18 @@ public class GameManager : MonoBehaviour
 	    if (Input.GetKeyDown(KeyCode.S))
 	    {
 	        data.SaveData();
-	    }
+        }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            Save();
+            Debug.Log("Saving...");
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Restore();
+            Debug.Log("Restoring...");
+        }
+
 
         data.goldText.text = "Gold: " + data.GetGold();
 	    data.playerHPText.text = "Player HP: " + data.GetHP();

@@ -57,7 +57,7 @@ public class WaveManager : MonoBehaviour
     {
         while (true)
         {
-            
+            Debug.Log("Build interval");
             yield return new WaitForSeconds(_buildInterval / GameManager.instance.gameSpeed);
             _waveCount++;
             Debug.Log("Wave: " + _waveCount + " Player HP: " + GameManager.instance.data.GetHP());
