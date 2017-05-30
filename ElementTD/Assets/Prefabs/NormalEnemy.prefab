@@ -130,13 +130,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiElement: {fileID: 0}
-  _maxHealth: 87
+  _maxHealth: 67
   _speed: 3
   _goldValue: 5
   gene:
-    waterResistance: 1
-    fireResistance: 0
-    natureResistance: 0
+    waterResistance: 0.11
+    fireResistance: 0.55
+    natureResistance: 0.34
     distanceWalked: 0
     damageTaken: 0
   _target: {fileID: 0}
@@ -215,7 +215,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 1fb11c774be2ff648ad9f2deef9802fa, type: 3}
-  m_Color: {r: 0, g: 0, b: 1, a: 1}
+  m_Color: {r: 0.55, g: 0.34, b: 0.11, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

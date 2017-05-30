@@ -2,18 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerNature : TowerCore
-{
-    protected override void Shoot()
+public class SupportTower : TowerDecorator {
+
+    public SupportTower(TowerCore towerCore) : base(towerCore)
     {
-        base.Shoot();
+        
     }
+
     public override void ChangeCore()
     {
-       
+        base.ChangeCore();
     }
+
     public override void Ability()
     {
-
+        base.Ability();
     }
 }

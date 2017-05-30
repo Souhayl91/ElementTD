@@ -120,4 +120,9 @@ public class Shop : MonoBehaviour
             Debug.Log("Select a tower to upgrade");
         }
     }
+
+    public void UpgradeTowerCore()
+    {
+        TowerCore tower = new SupportTower(new TowerFire());
+    }
 }
