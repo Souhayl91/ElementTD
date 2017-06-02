@@ -84,16 +84,16 @@ public class WaveManager : MonoBehaviour
         element.GetComponent<Image>().color = enemy.GetComponent<SpriteRenderer>().color;
 
         element.transform.GetChild(0).GetComponent<Text>().text =
-            (int)(enemy.GetComponent<EnemyNormal>().gene.fireResistance * 100) +
-            "% " + (int)(enemy.GetComponent<EnemyNormal>().gene.waterResistance * 100) +
-            "% " + (int)(enemy.GetComponent<EnemyNormal>().gene.natureResistance * 100) + "%";
-        enemy.GetComponent<EnemyNormal>().uiElement = element;
+            (int)(enemy.GetComponent<BaseEnemy>().gene.fireResistance * 100) +
+            "% " + (int)(enemy.GetComponent<BaseEnemy>().gene.waterResistance * 100) +
+            "% " + (int)(enemy.GetComponent<BaseEnemy>().gene.natureResistance * 100) + "%";
+        enemy.GetComponent<BaseEnemy>().uiElement = element;
         enemiesUI.Add(element);
     }
 
     public void RemoveEnemy(GameObject enemy)
     {
-        GameObject uiElement = enemy.GetComponent<EnemyNormal>().uiElement;
+        GameObject uiElement = enemy.GetComponent<BaseEnemy>().uiElement;
         
         if (uiElement != null)
         {

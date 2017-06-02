@@ -85,7 +85,7 @@ public class BaseEnemy : MonoBehaviour
     }
 
     // Use this for initialization
-    void Start ()
+    public void Start ()
     {
         
         //Debug.Log("Health: " + _maxHealth + " Gold: " + _goldValue + " gene: " + gene.ToString());
@@ -128,7 +128,7 @@ public class BaseEnemy : MonoBehaviour
         if (_wavePointIndex >= GameManager.instance.wavePoint.points.Length)
         {
             _wavePointIndex = 0;
-            //TODO: Remove live from player
+            //TODO: Remove life from player
             GameManager.instance.data.DecreaseHP(1);
             //Debug.Log(GameManager.instance.data.GetHP());
         }

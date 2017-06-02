@@ -5493,6 +5493,29 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 114025815793863286, guid: 5a20c851deb700949853038177d77fca,
+        type: 2}
+      propertyPath: enemyType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114025815793863286, guid: 5a20c851deb700949853038177d77fca,
+        type: 2}
+      propertyPath: normalEnemy
+      value: 
+      objectReference: {fileID: 1219312090570678, guid: 3bade079eab5fcd49b0f285f87964f83,
+        type: 2}
+    - target: {fileID: 114025815793863286, guid: 5a20c851deb700949853038177d77fca,
+        type: 2}
+      propertyPath: tankyEnemy
+      value: 
+      objectReference: {fileID: 1305811784739722, guid: 2252befcc118fd945bc55c08c1c8aa6b,
+        type: 2}
+    - target: {fileID: 114025815793863286, guid: 5a20c851deb700949853038177d77fca,
+        type: 2}
+      propertyPath: fastEnemy
+      value: 
+      objectReference: {fileID: 1972013584543214, guid: faa13dada6c7e04429c448a76a0ea21b,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a20c851deb700949853038177d77fca, type: 2}
   m_IsPrefabParent: 0

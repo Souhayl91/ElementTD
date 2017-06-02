@@ -5,13 +5,11 @@ using UnityEngine;
 public class EnemyTanky : BaseEnemy {
 
 	// Use this for initialization
-	void Start ()
+	public void Start () 
     {
+        base.Start();
 		SetHealth(_health * 1.5f);
+        SetSpeed(_speed * 0.5f);
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

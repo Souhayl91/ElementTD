@@ -5,12 +5,11 @@ using UnityEngine;
 public class EnemySpeedy : BaseEnemy {
 
 	// Use this for initialization
-	void Start ()
+	public void Start () 
 	{
-	    SetSpeed(_speed * 1.5f);
+	    base.Start();
+        SetSpeed(_speed * 1.5f);
+        SetHealth(_maxHealth * 0.5f);
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	}
 }
