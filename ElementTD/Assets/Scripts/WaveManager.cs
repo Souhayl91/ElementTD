@@ -62,6 +62,7 @@ public class WaveManager : MonoBehaviour
             yield return new WaitForSeconds(_buildInterval / GameManager.instance.gameSpeed);
             _waveCount++;
             Debug.Log("Wave: " + _waveCount + " Player HP: " + GameManager.instance.data.GetHP());
+            _enemyFactory.RandomType();
             _enemyFactory.SetWave(_waveCount);
 
             foreach (BaseEnemy.Gene gene in GameManager.instance.genetics.genes)

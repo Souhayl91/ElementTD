@@ -13,8 +13,13 @@ class EnemyFactory : MonoBehaviour, IFactory
     private Quaternion _spawnRotation;
     private int _waveCount;
     enum EnemyTypes { StandardEnemy, TankEnemy, FastEnemy }
+
     [SerializeField]
     private EnemyTypes enemyType;
+
+    [SerializeField]
+    //private int _goldValue;
+    //private int _healthValue;
 
     public void SetSpawnPosition()
     {
@@ -34,44 +39,42 @@ class EnemyFactory : MonoBehaviour, IFactory
         {
             case EnemyTypes.StandardEnemy:
             {
-                float health = 47 + _waveCount * (10 + (_waveCount / 7) * 2);
-                int gold = 5 + _waveCount / 5;
+                float healthincrease = 47 + _waveCount * (10 + (_waveCount / 7) * 2);
+                int goldincrease = 5 + _waveCount / 5;
                 enemy = normalEnemy;
-                enemy.GetComponent<EnemyNormal>().SetStats(health, gold, gene.waterResistance, gene.fireResistance, gene.natureResistance);
+                enemy.GetComponent<EnemyNormal>().SetStats(healthincrease, goldincrease, gene.waterResistance, gene.fireResistance, gene.natureResistance);
                 enemy.GetComponent<EnemyNormal>().SetColor();
-                
                 return enemy;
-               
             }
             case EnemyTypes.FastEnemy:
             {
-                float health = 20 + _waveCount * (10 + (_waveCount / 7) * 2);
-                int gold = 5 + _waveCount / 5;
+                float healthincrease = 20 + _waveCount * (10 + (_waveCount / 7) * 2);
+                int goldincrease = 5 + _waveCount / 5;
                 enemy = fastEnemy;
-                enemy.GetComponent<EnemySpeedy>().SetStats(health, gold, gene.waterResistance, gene.fireResistance, gene.natureResistance);
+                enemy.GetComponent<EnemySpeedy>().SetStats(healthincrease, goldincrease, gene.waterResistance, gene.fireResistance, gene.natureResistance);
                 enemy.GetComponent<EnemySpeedy>().SetColor();
                 return enemy;
-
             }
             case EnemyTypes.TankEnemy:
             {
-                float health = 60 + _waveCount * (10 + (_waveCount / 7) * 2);
-                int gold = 5 + _waveCount / 5;
+                float healthincrease = 60 + _waveCount * (10 + (_waveCount / 7) * 2);
+                int goldincrease = 5 + _waveCount / 5;
                 enemy = tankyEnemy;
-                enemy.GetComponent<EnemyTanky>().SetStats(health, gold, gene.waterResistance, gene.fireResistance, gene.natureResistance);
+                enemy.GetComponent<EnemyTanky>().SetStats(healthincrease, goldincrease, gene.waterResistance, gene.fireResistance, gene.natureResistance);
                 enemy.GetComponent<EnemyTanky>().SetColor();
                 return enemy;
-
             }
             default:
             {
                 return enemy;
             }
-
-        }
-       
+        }      
     }
 
+    public void RandomType()
+    {
+        enemyType = (EnemyTypes) Random.Range(0, 3);
+    }
     public void SetWave(int wavecount)
     {
         _waveCount = wavecount;

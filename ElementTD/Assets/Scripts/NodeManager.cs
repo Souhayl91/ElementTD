@@ -76,7 +76,7 @@ public class NodeManager : MonoBehaviour
             _lastNode = selectedNode;
 
         }
-        if (_lastNode != null && selectedNode != null) Debug.Log(_lastNode.isClicked);
+        //if (_lastNode != null && selectedNode != null) Debug.Log(_lastNode.isClicked);
     }
 
 }
