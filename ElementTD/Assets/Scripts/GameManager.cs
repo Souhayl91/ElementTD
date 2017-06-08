@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
         instance = this;
        
         gameObject.AddComponent<Data>();
-        data = new Data(50, 350, 1, 10);
+        data = new Data(_startingHP, _startingGold, 1, 10);
 
         wavePoint = gameObject.AddComponent<Waypoint>();
         wavePoint.SetWayPoints(wayPointsHolder);
