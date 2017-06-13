@@ -85,8 +85,8 @@ public class Shop : MonoBehaviour
         else
         {
             Debug.Log("You need more gold");
+            
         }
-
         //if (goldPlayer < goldCost)
         //{
         //    Debug.Log("You need more gold");
@@ -99,10 +99,6 @@ public class Shop : MonoBehaviour
         //    nodeManager.selectedNode.isClicked = false;
         //}
         //Debug.Log(goldPlayer);
-        
-        
-
-
     }
 
     public void UpgradeTower()
@@ -121,8 +117,10 @@ public class Shop : MonoBehaviour
         }
     }
 
-    public void UpgradeTowerCore()
+    public TowerCore UpgradeTowerCore()
     {
         TowerCore tower = new SupportTower(new TowerFire());
+
+        return tower;
     }
 }
