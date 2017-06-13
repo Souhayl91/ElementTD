@@ -117,9 +117,21 @@ public class Shop : MonoBehaviour
         }
     }
 
-    public TowerCore UpgradeTowerCore()
+    public TowerCore UpgradeTowerCoreFire()
     {
         TowerCore tower = new SupportTower(new TowerFire());
+
+        return tower;
+    }
+    public TowerCore UpgradeTowerCoreNature()
+    {
+        TowerCore tower = new SupportTower(new TowerNature());
+
+        return tower;
+    }
+    public TowerCore UpgradeTowerCoreWater()
+    {
+        TowerCore tower = new SupportTower(new TowerWater());
 
         return tower;
     }

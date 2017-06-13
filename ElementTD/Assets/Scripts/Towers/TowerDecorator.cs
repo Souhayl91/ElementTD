@@ -5,7 +5,6 @@ using UnityEngine;
 public class TowerDecorator : TowerCore
 {
     protected TowerCore _towerCore;
-    //public TowerCore DecoratedTowerCore;
 
     public TowerDecorator(TowerCore towerCore)
     {
@@ -14,8 +13,6 @@ public class TowerDecorator : TowerCore
 
     public override void ChangeCore()
     {
-        //if (this.DecoratedTowerCore == null) return;
-        //this.DecoratedTowerCore.ChangeCore();
         _towerCore.ChangeCore();
     }
 
