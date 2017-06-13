@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerBase : MonoBehaviour {
+public class TowerBase : TowerCore {
 
     public GameObject bullet;
     public Transform bulletSpawn;
@@ -96,6 +96,16 @@ public class TowerBase : MonoBehaviour {
         _damage = 10f + (float) Math.Pow(_level, 2);
         upgradegoldCost = 40 * _level;
         Debug.Log("values: " + "Level: " + _level + " Range: " + _range + " FireRate: " + _fireRate + " Damage: " + _damage + " Upgrade Cost: " + upgradegoldCost);
+    }
+
+    public override void Ability()
+    {
+        
+    }
+
+    public override void ChangeCore()
+    {
+        
     }
 
     void OnDrawGizmosSelected()
