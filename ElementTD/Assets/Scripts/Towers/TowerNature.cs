@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerNature : TowerCore
+public class TowerNature : TowerBase
 {
     protected override void Shoot()
     {
